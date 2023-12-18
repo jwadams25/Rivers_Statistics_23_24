@@ -3,7 +3,7 @@ title: "Tutorial 1: Introduction to R and RStudio"
 author: "Mr. Adams"
 editor: visual
 format: 
-  html:
+  gfm:
     fig-width: 8
     fig-height: 4
 ---
