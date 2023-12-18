@@ -1,0 +1,372 @@
+---
+title: "EDA with Numerical Data"
+author: "Mr. Adams"
+editor: visual
+format: 
+  gfm:
+    fig-width: 8
+    fig-height: 4
+---
+
+# EDA with Numerical Data!
+
+You've just finished one tutorial that got your wheels turning! If that was your first time writing code, congrats on taking the dive into an exciting new challenge!
+
+Over the past few weeks, you've built an understanding of the types of visualizations you can create, the statistics you can generate to support those visualizations, and how to interpret both. With that strong foundation laid down, you are now ready to explore real data to begin uncovering the stories hidden within them.
+
+# By the end of this tutorial I should be able to...
+
+## 1: Load the proper libraries before I start exploring the data.
+
+For this tutorial, we will use three packages: `tidyverse`, `openintro`, and `skimr`.
+
+`Tidyverse` is made up of a collection of packages that include tools making it easier to visualize, summarize, and wrangle data.
+
+`Openintro` is a package referenced in our textbook, Introduction to Modern Statistics. Among other things, it includes a number of datasets. During this tutorial, you will generate similar visualizations to those seen when reading.
+
+`Skimr` is a package that will help us quickly generate summary statistics.
+
+### 1.1: Tasks and Questions
+
+1.  Run the following code.
+
+```{r libraries}
+library(tidyverse)
+library(openintro)
+library(skimr)
+```
+
+## 2: View the data
+
+For this tutorial, we will use the dataset titled `loan50` provided in the `openintro` package. You first read about this dataset in [Chapter 1 of Introduction to Modern Statistics](https://openintro-ims.netlify.app/data-hello#data-basics).
+
+The data in `loan50` includes 50 randomly sampled loans offered through Lending Club, which is a peer-to-peer lending company.
+
+Again, the Name_of_the_Dataset is `loan50`.
+
+### 2.1: Tasks and Questions
+
+1.Run the following code to view the data.
+
+```{r view data}
+view(loan50)
+```
+
+2.  Run the following code to get a glimpse of the data.
+
+```{r glimpse}
+glimpse(loan50)
+```
+
+**Are you confused? I certainly would be!** Before diving into any exploration, you need to first be sure you understand the data
+
+3.  Click this link <https://www.openintro.org/data/index.php?data=loan50> to learn more about this dataset.
+
+**For the next five questions, use information from the link you just read and the code your ran in questions 1 and 2 of this section.**
+
+4.  From what platform was this data taken?
+
+5.  What does that platform do?
+
+6.  What are the observational units in the `loan50` dataset?
+
+7.  How many observations are there?
+
+8.  How many variables are there?
+
+***For the rest of this tutorial, you will work with a smaller version of this data set. We'll keep the 50 rows, but select 7 of the 18 variables we started with.***
+
+9.  Run the code below makes this new and smaller data frame.
+
+```{r select variables}
+loan50_small <- loan50 |>
+                select(loan_amount, interest_rate, term, grade, 
+                       state, total_income, homeownership)
+
+```
+
+### 2.2: Tasks and Questions
+
+1.  What is the name of the new data frame created in the lines of code above? Type the name EXACTLY how it appears above. (Hint: Copying and pasting is your friend! Also, if you double click on text it will highlight it for you. Give it a try!)
+
+2.  What is the name of this symbol \|\> ?
+
+3.  When you are reading code and come across the symbol \|\> you should say, "And \_\_\_\_\_\_"
+
+4.  List all of the numerical variables? Type the names EXACTLY how they appear in the code above. *Hint: Copying and pasting is your friend!*
+
+## 3: Build a histogram.
+
+Throughout this year, you've learned how to ask statistical questions and choose the visualizations and statistics that will allow you to begin answering those questions.
+
+Your process of doing those things has gone something like...
+
+To answer this question I...
+
+-   need this data frame
+
+-   specifically need this variable
+
+-   need to put it on the blank axis
+
+-   and I want to make this visualization.
+
+Fortunately, the structure of the code you will write to create visualizations in R follows this same structure.
+
+The code below reads like this...
+
+-   Use the Name_of_Data_Frame AND THEN
+
+-   Make a plot with the following aesthetics: the x-axis is this Numerical_Variable and ADD
+
+-   A histogram.
+
+```{r example histogram}
+loan50_small |>
+  ggplot(aes(x = loan_amount)) +
+  geom_histogram()
+```
+
+### 3.1: Tasks and Questions
+
+1.  Run the code above.
+
+2.  What is a question that could be explored with the histogram created by the code above?
+
+3.  Describe the shape of the distribution and what that tells you about the loan amounts.
+
+### 3.2: Tasks and Questions
+
+1.  Write a question that could be answered by creating a histogram using the data frame named `loan50_small`. *(use a different variable than the one used in 3.1)*\
+
+2.  What is the numerical variable you'll need to use to create the histogram. Write the name EXACTLY as it appears in the data frame.
+
+3.  In the code below, replace `NAME_OF_DATA_FRAME` with loan50_small.
+
+4.  In the code below, replace `NUMERICAL_VARIABLE` with the name you wrote in question 2 and then run the chunk of code.
+
+5.  Describe the distribution. Be sure to comment on the shape, center, and spread of the distribution.
+
+```{r your first histogram}
+
+NAME_OF_DATA_FRAME |>
+  ggplot(aes(x = NUMERICAL_VARIABLE)) +
+  geom_histogram()
+
+```
+
+## 4: Build a density curve.
+
+### 4.1: Tasks and Questions
+
+1.  Copy the code you wrote to create your first histogram and paste it into the gray section below.
+
+2.  If you are about to change your visualization from a histogram to a density curve, will you need to change the variable listed on the x-axis?
+
+3.  In the code below, change geom_histogram() to geom_density() and then run the entire code chuck.
+
+    ```{r your first density curve}
+
+    ```
+
+4.  Bonus: True or False - You can create a density curve for a discrete numeric variable. (Explain your answer)
+
+## 5: Generate summary statistics to support a histogram and density curve.
+
+As we've talked about a number of times in class, let the computer do the work when it comes to calculations. You won't pull out your ti calculator or a piece of paper to calculate statistics for large datasets.
+
+The organization of your code to perform these calculations goes like this...
+
+-   Look at this data AND THEN
+
+-   select this/these variable(s) AND THEN
+
+-   generate the summary statistics
+
+Below is the code to generate the summary statistics for the histogram I created.
+
+```{r example summary statistics}
+loan50_small |>
+  select(loan_amount) |>
+  skim()
+```
+
+### 5.1: Tasks and Questions
+
+1.  Write the code that would generate the summary statistics that could be used to help answer the questions you wrote in 3.2. Hint: Copy and Paste is your friend!
+
+```{r your first summary stats}
+
+```
+
+2.  Copy and Paste the code for your histogram and your summary stats into the space below.
+
+3.  Run the code.
+
+```{r viz and stats}
+
+```
+
+4.  Describe the distribution of the numerical variable you choose when creating the data visualization. Be sure to comment on the shape, center, and spread of the distribution using statistical vocabulary you have learned in this class and the appropriate statistics you generated.
+
+## 6: Adjust histogram to include some data visualization best practices.
+
+You may be saying to yourself, "Those histograms didn't look that great and were poorly labeled." If you said something like that, you are correct.
+
+### 6.1: Adding Labels
+
+In this section, we will add on various **layers** to our code to adjust different aspects of the visualization.
+
+Let's start by adding a title, subtitle, and labels to each axis of the *first histogram made in this tutorial*. Notice in the code below how the first four lines are the exact same as what we started with above. To add labels to our visualization, we use `labs`.
+
+#### 6.1: Tasks and Questions
+
+1.  Add a title, subtitle, and labels for each axis by typing in between each `""`.
+
+2.  Run the code chunk
+
+```{r add labels to my histogram}
+
+loan50_small |>
+  ggplot(aes(x = loan_amount)) +
+  geom_histogram() +
+  labs(
+    title ="",
+    subtitle = "",
+    x = "",
+    y = ""
+  )
+
+```
+
+### 6.2: Adjusting Bins
+
+Since you've calculated the summary statistics above you know the loan amounts have a large range. Also, when looking at the visualization, it's not clear as to what the bin width is. When choosing a bin width, it's important to **choose one that is relevant**. Also, the bin width should help to create a visualization that does not either oversimplify the distribution or create unnecessary clutter. Certainly, those last two statements are not very definitive. This is where the creativity and clear and effective communication come into play.
+
+In the code below, you will see that there is NOT a new layer. We added an **element** to the histogram so it adjusts the bin width.
+
+#### 6.2: Tasks and Questions
+
+1.  What bin width do you think will be best for the histogram showing the distribution of loan amounts? (see histogram and statistics)
+
+2.  Write the number you choose in question 1 after `binwidth =` in the code below.
+
+3.  Write in the title, subtitle, and labels for each axis into the code below.
+
+4.  Run the chunk of code.
+
+5.  After running it, adjust the binwidth to a value that you think creates the best possible histogram.
+
+```{r adjust the bins}
+
+loan50_small |>
+  ggplot(aes(x = loan_amount)) +
+  geom_histogram(binwidth = ) +
+  labs(
+    title ="",
+    subtitle = "",
+    x = "",
+    y = ""
+  )
+
+```
+
+### 6.3: Adjusting Scales
+
+You may also want to adjust the **scales** on the x and y axes.
+
+Be careful when adjusting scales!! Do not distort the story being told! Whole books are written about topics like this so we'll talk more about this as we continue to build visualizations.
+
+A good general rule, keep it simple!
+
+#### 6.3: Tasks and Questions
+
+1.  Copy the code used to generate the histogram in 6.2 Tasks and Questions #5 and paste it into the gray space below.
+
+2.  When you have a continuous variable on the x-axis, you can use the following to adjust the scale:
+
+`scale_x_continuous(limits = c(min, max), breaks = seq(min, max, ticks))`
+
+Edit the words min, max, and ticks in the code you see in the previous line. min = minimum value for x-axis max = maximum value for x-axis ticks = where you want the markings along the x-axis.
+
+3.  Put a `+` at the end of the code you pasted into the section below and then jump to the next line.
+
+4.  Paste the scale_x_continuous code you adjusted into the last row of the code chunk below.
+
+```{r adjust scales}
+
+```
+
+### 6.4: Clean Up
+
+Alright, you have done a lot to improve the original histogram that appeared! Let's keep getting your visualization ready for prime time!
+
+Removing clutter is often a wise choice when designing a visualization. That is what you will do now.
+
+#### 6.4: Tasks and Questions
+
+1.  Copy and past the code from 6.3 into the gray space below.
+
+2.  At the end of the line with scale_x_continuous put a `+`
+
+3.  On the next line write in `theme_minimal()` and then run the entire chunk of code.
+
+```{r clean up}
+
+
+
+```
+
+### 6.5: Fill the Bars and Add Color
+
+#### 6.5: Tasks and Questions
+
+1.  What are Lending Clubs 2 main corporate colors?
+
+2.  Click [this link](http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf) and find the names of the colors that best match Lending Clubs corporate colors. Copy one of the color names into the `""` that come after `fill =` . Copy the other color into the "" after color `=` .
+
+```{r fill and color}
+loan50_small |>
+  ggplot(aes(x = loan_amount)) +
+  geom_histogram(binwidth = 2500, fill = "", color = "") +
+  labs(
+    title ="Distribution of Loan Amounts",
+    subtitle = "50 randomly selected loans from Lending Club",
+    x = "Loan Amount in US Dollars",
+    y = "Number of Loans"
+  ) +
+  scale_x_continuous(limits = c(0, 45000), breaks = seq(0, 45000, 5000)) +
+  theme_minimal()
+```
+
+### 6.6: Put it all together.
+
+You've done a lot so far. One by one, you adjusted various elements of the histogram showing the loan amount data. Now you are going to work with the **histogram you created in part 3.**
+
+#### 6.6: Tasks and Questions
+
+1.  Copy and paste the code you wrote for 3.2 into the gray space below and then run the code.
+
+2.  Adjust the following elements of the histogram:
+
+-   labels.
+-   bin width
+-   axis scales
+-   theme
+-   fill and color
+
+```{r put it all together}
+
+```
+
+### 7 Bonus:
+
+#### Bonus Tasks
+
+1.  Turn the histogram you just made into a density curve.
+
+2.  Add a vertical line that represents the median of the data being visualized. *(Hint: Bing Chat in creative mode is your friend)*
+
+```{r bonus median line}
+
+```
