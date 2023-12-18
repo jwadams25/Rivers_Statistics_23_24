@@ -1,6 +1,22 @@
 # Tutorial 1: Introduction to R and RStudio
 Mr. Adams
 
+- [Welcome to R and RStudio!](#welcome-to-r-and-rstudio)
+- [By the end of this tutorial I should be able
+  to…](#by-the-end-of-this-tutorial-i-should-be-able-to)
+  - [1: Describe what a package is and know when to run a
+    library.](#describe-what-a-package-is-and-know-when-to-run-a-library.)
+    - [1.1: Tasks and Questions](#tasks-and-questions)
+  - [2: Use R as a calculator](#use-r-as-a-calculator)
+    - [2.1: Tasks and Questions](#tasks-and-questions-1)
+  - [3: Name functions](#name-functions)
+    - [3.1: Tasks and Questions](#tasks-and-questions-2)
+  - [4: Create a vector](#create-a-vector)
+    - [4.1: Tasks and Questions](#tasks-and-questions-3)
+  - [5: Create a data frame](#create-a-data-frame)
+    - [5.1: Tasks and Questions](#tasks-and-questions-4)
+    - [5.2: Tasks and Questions](#tasks-and-questions-5)
+
 # Welcome to R and RStudio!
 
 Congratulations! You are taking the first step toward becoming a data

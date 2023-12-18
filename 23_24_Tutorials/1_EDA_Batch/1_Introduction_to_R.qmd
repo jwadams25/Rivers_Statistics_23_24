@@ -6,6 +6,8 @@ format:
   gfm:
     fig-width: 8
     fig-height: 4
+    toc: true
+    toc_depth: 4
 ---
 
 # Welcome to R and RStudio!
