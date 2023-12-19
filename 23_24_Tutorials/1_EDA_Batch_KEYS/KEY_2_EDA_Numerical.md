@@ -243,7 +243,7 @@ loan50_small |>
 
     `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 
-![](KEY_Tutorial_2_files/figure-commonmark/example%20histogram-1.png)
+![](KEY_2_EDA_Numerical_files/figure-commonmark/example%20histogram-1.png)
 
 ### 3.1: Tasks and Questions
 
@@ -295,7 +295,7 @@ loan50_small |>
 
     `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 
-![](KEY_Tutorial_2_files/figure-commonmark/your%20first%20histogram-1.png)
+![](KEY_2_EDA_Numerical_files/figure-commonmark/your%20first%20histogram-1.png)
 
 ## 4: Build a density curve.
 
@@ -320,7 +320,7 @@ loan50_small |>
       geom_density()
     ```
 
-    ![](KEY_Tutorial_2_files/figure-commonmark/your%20first%20density%20curve-1.png)
+    ![](KEY_2_EDA_Numerical_files/figure-commonmark/your%20first%20density%20curve-1.png)
 
 4.  Bonus: True or False - You can create a density curve for a discrete
     numeric variable. (Explain your answer)
@@ -418,7 +418,7 @@ loan50_small |>
 
     `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 
-![](KEY_Tutorial_2_files/figure-commonmark/viz%20and%20stats-1.png)
+![](KEY_2_EDA_Numerical_files/figure-commonmark/viz%20and%20stats-1.png)
 
 ``` r
 loan50_small |>
@@ -495,7 +495,7 @@ loan50_small |>
 
     `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 
-![](KEY_Tutorial_2_files/figure-commonmark/add%20labels%20to%20my%20histogram-1.png)
+![](KEY_2_EDA_Numerical_files/figure-commonmark/add%20labels%20to%20my%20histogram-1.png)
 
 ### 6.2: Adjusting Bins
 
@@ -541,7 +541,7 @@ loan50_small |>
   )
 ```
 
-![](KEY_Tutorial_2_files/figure-commonmark/adjust%20the%20bins-1.png)
+![](KEY_2_EDA_Numerical_files/figure-commonmark/adjust%20the%20bins-1.png)
 
 ### 6.3: Adjusting Scales
 
@@ -588,7 +588,7 @@ loan50_small |>
 
     Warning: Removed 2 rows containing missing values (`geom_bar()`).
 
-![](KEY_Tutorial_2_files/figure-commonmark/adjust%20scales-1.png)
+![](KEY_2_EDA_Numerical_files/figure-commonmark/adjust%20scales-1.png)
 
 ### 6.4: Clean Up
 
@@ -623,7 +623,7 @@ loan50_small |>
 
     Warning: Removed 2 rows containing missing values (`geom_bar()`).
 
-![](KEY_Tutorial_2_files/figure-commonmark/clean%20up-1.png)
+![](KEY_2_EDA_Numerical_files/figure-commonmark/clean%20up-1.png)
 
 ### 6.5: Fill the Bars and Add Color
 
@@ -653,7 +653,7 @@ loan50_small |>
 
     Warning: Removed 2 rows containing missing values (`geom_bar()`).
 
-![](KEY_Tutorial_2_files/figure-commonmark/fill%20and%20color-1.png)
+![](KEY_2_EDA_Numerical_files/figure-commonmark/fill%20and%20color-1.png)
 
 ### 6.6: Put it all together.
 
@@ -690,7 +690,7 @@ loan50_small |>
 
     Warning: Removed 2 rows containing missing values (`geom_bar()`).
 
-![](KEY_Tutorial_2_files/figure-commonmark/put%20it%20all%20together-1.png)
+![](KEY_2_EDA_Numerical_files/figure-commonmark/put%20it%20all%20together-1.png)
 
 ### 7 Bonus:
 
@@ -732,7 +732,7 @@ loan50_small |>
     Warning in geom_density(binwidth = 25000, fill = "#002a4e", color = "#ef4123"):
     Ignoring unknown parameters: `binwidth`
 
-![](KEY_Tutorial_2_files/figure-commonmark/bonus%20median%20line-1.png)
+![](KEY_2_EDA_Numerical_files/figure-commonmark/bonus%20median%20line-1.png)
 
 I used Bing in Creative mode to help generate this answer. Here is the
 conversation:
