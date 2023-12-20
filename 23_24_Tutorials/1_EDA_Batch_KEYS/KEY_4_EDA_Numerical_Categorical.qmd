@@ -1,5 +1,5 @@
 ---
-title: "Tutorial 4: EDA with Numerical Data"
+title: "KEY Tutorial 4: EDA with Numerical Data"
 author: "Mr. Adams"
 editor: visual
 format: 
@@ -38,11 +38,19 @@ Throughout this tutorial, the data frame you will explore, named *`county`*, is 
 
 2.  What is the name of the data frame?
 
+    `county`
+
 3.  What are the observational units and how many are there?
+
+    The observations are the 3,142 counties in the United States
 
 4.  How many numerical variables are there in this data frame?
 
+    There are 10 numerical variables.
+
 5.  How many categorical variables are there in this data frame?
+
+    There are 5 numerical variables.
 
 ```{r data}
 ?county
@@ -57,19 +65,23 @@ As you know, questions appear at the top of our statistics wheel. You then colle
 
 1.  Write down a question that would require you to explore one numerical variable and one categorical variable from this dataset.
 
+    How does the poverty rate in counties that contain a metropolitan area compare to those counties that do not have a metropoloitan area?
+
 2.  What is the name of each variable? Be sure to write each name EXACTLY as it appears in the data frame.
 
-    numerical variable =
+    numerical variable = `poverty`
 
-    categorical variable =
+    categorical variable = `metro`
 
 3.  Write down a second question that would require you to explore one numerical variable and one categorical variable.
 
+    Is there an association between a county's median education level and median household income?
+
 4.  What is the name of each variable? Be sure to write each name EXACTLY as it appears in the data frame.
 
-    numerical variable =
+    numerical variable = `median_hh_income`
 
-    categorical variable =
+    categorical variable = `median_edu`
 
 5.  Call Mr. Adams over to discuss the questions you just wrote questions.
 
@@ -92,9 +104,9 @@ As you work through the tasks and questions, you will reference **one** of the q
 3.  Add layers to this code to improve the title and labels on each axis and make it have the `theme_minimal`.
 
 ```{r box plots}
-NAME_OF_DATA_FRAME |>
-  filter(!is.na(NUMERICAL_VARIABLE)) |>
-  ggplot(aes(x = NUMERICAL_VARIABLE, y = CATEGORICAL_VARIABLE, color = CATEGORICAL_VARIABLE)) +
+county |>
+  filter(!is.na(poverty),!is.na(metro) ) |>
+  ggplot(aes(x = poverty, y = metro, color = metro)) +
   geom_boxplot()
 ```
 
@@ -125,10 +137,10 @@ The three functions are:
 2.  Run the code.
 
 ```{r stats to support box plots}
-NAME_OF_DATA_FRAME |>
-  filter(!is.na(NUMERICAL_VARIABLE)) |>
-  group_by(CATEGORICAL_VARIABLE) |>
-  select(NUMERICAL_VARIABLE) |>
+county |>
+  filter(!is.na(poverty), !is.na(metro)) |>
+  group_by(metro) |>
+  select(poverty) |>
   skim()
 ```
 
@@ -140,9 +152,17 @@ You've created a visualization and generated summary stats. Time to start making
 
 1.  Using information learned through your box plots and the statistics you generated, answer the question you asked. **\*\*\***Be sure to comment on and compare the **shapes, center, and variability** using **statistical vocabulary** and **relevant statistics** in your answer.
 
+    While the distribution of poverty rates in counties that contain and do not contain a metropolitan area are both skewed to the right, the counties that have a metro area tend to have a lower poverty rate (median = 13.9) than counties without a metropolitan area (median = 16). The counties without a metropolitan area also have a wider spread of poverty rates as the middle 50% of poverty rates in those counties falls from 11.9 to 20.9.
+
 2.  Despite learning information to help answer your questions, what information might you be missing from the visualization you created? In other words, what aspects of the distribution might not be easily seen in a box blot. List at least two pieces of information.
 
+    Might either of these distributions be multi-modal?
+
+    We also don't get a sense of how many counties are in each group.
+
 3.  What is another visualization that could help you uncover those missing pieces of information?
+
+    To see if the distributions is multi-modal and to compare the number of counties in each group, we can create a histogram for each distribution.
 
 # 5. Build faceted histograms.
 
@@ -160,10 +180,11 @@ For this section, you will continue to **use the same variables you used in part
 
     ```{r number of levels}
     county |>
-      filter(!is.na(CATEGORICAL_VARIABLE)) |>
-      select(CATEGORICAL_VARIABLE) |>
-      group_by(CATEGORICAL_VARIABLE) |>
-      count(CATEGORICAL_VARIABLE)
+      filter(!is.na(metro)) |>
+      select(metro) |>
+      group_by(metro) |>
+      count(metro)
+    1974+1165
     ```
 
 Change `CATEGORICAL_VARIABLE` , `NUMBER_OF_LEVELS` , and `BIN_WIDTH`
@@ -174,11 +195,11 @@ Change `CATEGORICAL_VARIABLE` , `NUMBER_OF_LEVELS` , and `BIN_WIDTH`
 
 ```{r faceted histograms}
 
- NAME_OF_DATA_FRAME |>
-  filter(!is.na(NUMERICAL_VARIABLE)) |>
-  ggplot(aes(x = NUMERICAL_VARIABLE)) +
-  geom_histogram(binwidth = BIN_WIDTH) +
-  facet_wrap(~CATEGORICAL_VARIABLE, nrow = NUMBER_OF_LEVELS)
+ county |>
+  filter(!is.na(poverty) & !is.na(metro)) |>
+  ggplot(aes(x = poverty)) +
+  geom_histogram(binwidth = 2.5) +
+  facet_wrap(~metro, nrow = 2)
 
 ```
 
@@ -186,7 +207,11 @@ Change `CATEGORICAL_VARIABLE` , `NUMBER_OF_LEVELS` , and `BIN_WIDTH`
 
 1.  Did you learn anything new about the distributions by looking at the visualizations you created? If so, explain.
 
+    I learned that there are more counties that do not have metropolitan areas.
+
 2.  What new questions does this information raise?
+
+    Why might counties without metropolitan areas tend to have higher poverty rates?
 
 3.  Call Mr. Adams over to chat through your work on the tutorial thus far.
 
@@ -202,17 +227,29 @@ For this part of the tutorial, we will explore the question:
 
 1.  Which variables would we need to use to explore that question? Type the names of the variables EXACTLY as they appear in the data frame into the code chunk below.
 
+    `median_hh_income`
+
+    `metro`
+
 2.  Add in a row that filters out any `NA` values for the numerical variable.
 
 3.  Run the code.
 
 ```{r ridges}
-NAME_OF_DATA_FRAME |>
-  ggplot(aes(x = NUMERICAL_VARIABLE, 
-             y = CATEGORICAL_VARIABLE, 
-             color = CATEGORICAL_VARIABLE, 
-             fill = CATEGORICAL_VARIABLE)) +
-  geom_density_ridges(alpha = 0.5)
+county |>
+  filter(!is.na(metro) & !is.na(median_hh_income)) |>
+  ggplot(aes(x = median_hh_income, 
+             y = metro, 
+             color = metro, 
+             fill = metro)) +
+  geom_density_ridges(alpha = 0.5) +
+  labs(x = "Median Household Income", 
+       y = "", 
+       title = "Is there a relationship between a county's median household\nincome and whether or not that county contains a metropolitan area?", 
+       subtitle = "Counties with a metro area tend to have higher median household incomes.",
+       caption = "Data from 3,139 counties in the United States") +
+  scale_x_continuous(limits = c(0, 140000), breaks = seq(0, 140000, 20000)) +
+theme_minimal()
 
 ```
 
@@ -234,6 +271,8 @@ county |>
 7.  Add layers to this code to improve the title and labels on each axis and make it have the `theme_minimal`.
 
 8.  Describe the distributions you just created. Be sure to comment on and compare the shape, center, and variability of the distributions.
+
+    Counties with metro areas tend to have higher median household incomes (median = \$54,150) than those counties without a metro area ((median = \$44,892). The counties with metro areas also have a wider range in median incomes, which is evident from the middle 50% of median incomes raning from 46,784 to 63,63,171. There are a few counties with metro areas that have particularly high median incomes which makes the distribution have a shape that is skewed to the right. On the other hand, distribution of median household incomes the counties without a metro area are more symmetrical around the mean (45,5544.11) and tend to fall roughly within 10,104.41 of that mean.
 
 # 7 - Bonus: Two Numerical Variables and a Categorical Variable
 
@@ -258,10 +297,11 @@ What do you wonder?
 5.  You've now **crushed 4 challenging coding tutorials** and are well on your way to being a pro! Turn on your favorite pump up song, **turn up the volume on your computer**, and pat yourself on the back!
 
 ```{r scatter with color}
-NAME_OF_DATA_FRAME |>
-  filter(!is.na(CATEGORICAL_VARIABLE)) |>
-  ggplot(aes(x = NUMERICAL_VARIABLE_X, y = NUMERICAL_VARIABLE_RESPONSE, color = CATEGORICAL_VARIABLE)) +
+county |>
+  filter(!is.na(metro)) |>
+  ggplot(aes(x = poverty, y = homeownership, color = metro)) +
   geom_point(alpha = 0.25) +
+  geom_smooth(method = lm) +
   theme_minimal()
 
 ```
