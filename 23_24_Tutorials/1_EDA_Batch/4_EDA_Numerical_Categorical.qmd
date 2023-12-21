@@ -166,7 +166,7 @@ For this section, you will continue to **use the same variables you used in part
       count(CATEGORICAL_VARIABLE)
     ```
 
-Change `CATEGORICAL_VARIABLE` , `NUMBER_OF_LEVELS` , and `BIN_WIDTH`
+Change `CATEGORICAL_VARIABLE` , `NUMBER_OF_LEVELS`, and `BIN_WIDTH`
 
 3.  Run the code.
 
@@ -175,7 +175,7 @@ Change `CATEGORICAL_VARIABLE` , `NUMBER_OF_LEVELS` , and `BIN_WIDTH`
 ```{r faceted histograms}
 
  NAME_OF_DATA_FRAME |>
-  filter(!is.na(NUMERICAL_VARIABLE)) |>
+  filter(!is.na(NUMERICAL_VARIABLE) & !is.na(CATEGORICAL_VARIABLE)) |>
   ggplot(aes(x = NUMERICAL_VARIABLE)) +
   geom_histogram(binwidth = BIN_WIDTH) +
   facet_wrap(~CATEGORICAL_VARIABLE, nrow = NUMBER_OF_LEVELS)
