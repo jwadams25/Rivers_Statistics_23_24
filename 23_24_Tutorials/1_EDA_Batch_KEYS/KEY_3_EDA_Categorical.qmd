@@ -40,7 +40,7 @@ To learn how you can explore one categorical variable using R, you will use the 
 
 2.  What are the observational units?
 
-    \"910 randomly sampled registered voters in Tampa, FL\"
+    "910 randomly sampled registered voters in Tampa, FL"
 
 3.  How many observations are there? (You can now run the code to help answer this question.)
 
