@@ -1,0 +1,199 @@
+---
+title: "Tutorial 5: EDA - Linear Regression"
+author: "YOUR NAME"
+editor: visual
+format: 
+  gfm:
+    fig-width: 8
+    fig-height: 4
+    toc: true
+    toc_depth: 4
+---
+
+# Overview
+
+Now that you've built a baseline understanding of least squares regressions, you will learn to build scatter plots and generate linear models here in Posit.
+
+***Start by changing YOUR NAME next to where it says author above.***
+
+# Goals
+
+***By the end of this tutorial you should be able to...***
+
+1.  Build a scatter plot that has a linear model.
+
+2.  Generate the equation of the linear model.
+
+3.  Check if a linear model is appropriate.
+
+4.  Interpret the linear regression model.
+
+5.  Add design elements to the scatter plot to improve the labels, colors, and alpha.
+
+# Libraries
+
+## **Opening Tasks and Questions - Run the following code chunk**
+
+```{r Libraries, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(openintro)
+library(knitr)
+
+```
+
+# 1: Structured Walk-Through
+
+## 1.1: The Data
+
+While reading [Chapter 7 in Introduction to Modern Statistics](https://openintro-ims.netlify.app/model-slr), you explore the relationship between gift aid and family income for freshman at Elmhurst College. Therefore, let's start by recreating the scatter plot and the linear model you saw in the reading.
+
+### 1.1: Tasks and Questions
+
+```{r the data}
+?elmhurst
+glimpse(elmhurst)
+```
+
+1.  What are the observational units and how many are there?
+
+2.  What are the names of the two variables we will explore when answering the question, "Is there an association between family income and the amount of gift aid received?"
+
+3.  What is the predictor variable?
+
+4.  What is the outcome variable?
+
+## 1.2: The Plot
+
+You will see in the code below the structure matches the code we used to make other data visualizations. You ask the computer to reference a dataset, make a plot with certain aesthetics, make a certain type of plot, and add labels.
+
+### 1.2: Tasks and Questions
+
+1.  Replace `NAME_OF_DATASET` with the name of the dataset.
+
+2.  Replace `PREDICTOR` and `OUTCOME` with the name of each variable.
+
+3.  Change the labels for the x and y axes as well as the title. *(Be sure to list the units when writing the labels on the x and y axes.)*
+
+4.  Run the code chunk.
+
+```{r build a scatter plot}
+
+NAME_OF_DATASET |>
+  ggplot(aes(x = PREDICTOR, y = OUTCOME)) +
+  geom_point() +
+  labs(
+    x = "", 
+    y = "",
+    title =""
+    )
+
+```
+
+## 1.3: The Model
+
+As you know, adding a least squares regression line to the plot and generating an equation allows you to better quantify the association between the two numerical values. You will now do both of those things in the following sections of this tutorial.
+
+### 1.3: Tasks and Questions
+
+1.  a\. Add the line representing the linear model to the scatter plot you just created.
+
+    To do this, type "`lm`" after where you see `method =` in the code chunk below.
+
+    `geom_smooth` is the function that adds the line and the `lm` code you added stands for linear model. When you progress to higher levels of statistics and data science, you will add in different types of models while also using `geom_smooth`.
+
+    ```{r add the model}
+    elmhurst |>
+      ggplot(aes(x = family_income, y = gift_aid)) +
+      geom_point() +
+      geom_smooth(method = , se = FALSE) +
+      labs(
+        x = "Family Income of the Student ($1000s)", 
+        y = "Gift Aid ($1000s)",
+        title = "Gift Aid vs Family Income"
+        )
+    ```
+
+2.  Generate the intercept and slope of the model
+
+    To do this, replace `NAME_OF_DATASET`, `PREDICTOR`, and `OUTCOME` in the code chunk below.
+
+    ```{r intercept slope}
+    lm(data = NAME_OF_DATASET, formula = OUTCOME~PREDICTOR)
+    ```
+
+3.  Write the equation in the space below.
+
+4.  Find the mean and standard deviation of each variable along with the correlation coefficient by changing `PREDICTOR` and `OUTCOME` in the code chunk below.
+
+```{r correlation}
+elmhurst |>
+  summarise(
+    mean_income = mean(PREDICTOR), 
+    sd_income = sd(PREDICTOR), 
+    mean_aid = mean(OUTCOME), 
+    sd_aid = sd(OUTCOME),
+    r = cor(OUTCOME, PREDICTOR)
+  ) |>
+    mutate(
+    r_squared = r^2
+  )
+```
+
+## 1.4: Evaluating How Well the Model Fits
+
+Technically, you can add a linear regression model to any scatter plot and generate an equation for that line. However, not every relationship plotted using a scatter plot is linear. Therefore, you can use a residual plot to evaluate if the linear model does in fact fit the data.
+
+### 1.4: Tasks and Questions
+
+1.  Copy the code you wrote above to create the model into the code chunk below and then give it a name `elmhurst_model.`
+
+    ```{r naming the model}
+
+    ```
+
+2.  In the code chunk below change:
+
+    Change `MODEL_NAME` to `elmhurst_model`
+
+    `X_DATA` to `.fitted`
+
+    `Y_DATA` to `.resid`
+
+    ```{r residuals plot}
+    MODEL_NAME |>
+    ggplot(aes(x = X_DATA, y = Y_DATA)) +
+      geom_point() +
+      geom_hline(yintercept = 0) +
+      labs(title = "Residual Plot",
+           x = "Fitted Values",
+           y = "Residuals")
+    ```
+
+3.  Given what the residuals plot shows, evaluate whether or not a linear model is appropriate for describing the relationship between family income and gift aid. Explain your answer.
+
+## 1.5: Interpreting the Model
+
+Getting the numbers is only part of the battle. Interpreting the model properly and then clearly communicating that to others is essential. You will now practice doing just that.
+
+### 1.5: Tasks and Questions
+
+1.  Use the slope coefficient to describe the direction of the association.
+
+2.  Use the R-squared value to describe the strength of the association.
+
+3.  If a family income of an incoming freshman student was \$125,000, how much gift aid would the model predict they'd receive. [***USE THE EQUATION to find this. DO NOT JUST LOOK AT THE SCATTER PLOT!!***]{.underline} ***Remember r can be used as calculator.***
+
+```{r make a prediction}
+# find slope in thousands
+
+
+# Make prediction
+
+
+```
+
+## Sources:
+
+<https://openintro-ims.netlify.app/model-slr.html> <https://openintro.shinyapps.io/ims-03-model-04/#section-data-set-up>
+
+<https://sl.bing.net/fB4qmjQNMT6>
