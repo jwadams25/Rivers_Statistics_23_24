@@ -22,6 +22,7 @@ library(knitr)
 library(kableExtra)
 library(gridExtra)
 library(readr)
+library(gt)
 ```
 
 # 1: Exploring One Categorical Variable
@@ -112,7 +113,9 @@ That line of code is what you see in the gray space below. The mutate function i
 
 immigration |>
   count(political) |>
-  mutate(proportion = n / sum(n)) 
+  mutate(proportion = n / sum(n)) |>
+  mutate(percentage = proportion*100) |>
+  gt()
 
 ```
 
@@ -136,8 +139,9 @@ We've talked a lot about clear and effective communication. One way to do that w
 
 immigration |>
   count(political) |>
-  mutate(proportion = n / sum(n)) |>
-  arrange(desc(proportion))
+  mutate(proportion = n / sum(n)) |> 
+  arrange(desc(proportion)) |>
+  gt()
 
 ```
 
@@ -260,7 +264,8 @@ Let's start by recreating the table you saw on this homework problem. To get a r
 immigration |>
   count(political, response) |>
   pivot_wider(names_from = political, values_from = n) |>
-  adorn_totals(where = c("row", "col"))
+  adorn_totals(where = c("row", "col")) |>
+  gt()
 ```
 
 ## 2.2: Contingency Table with Proportions.
@@ -278,10 +283,11 @@ In other words, you want to have a table that can help answer questions like, "W
  immigration|>
   count(political, response) |> 
   group_by(political) |>
-  mutate(proportion = n / sum(n)) |> 
+  mutate(proportion = round(n / sum(n), digits = 4)) |> 
   select(-n) |>
-  pivot_wider(names_from = political, values_from = proportion)
-
+  pivot_wider(names_from = political, values_from = proportion) |>
+  gt()
+?round
 ```
 
 ## 2.3: Visualize Two Categorical Variables with a Filled Bar Plot

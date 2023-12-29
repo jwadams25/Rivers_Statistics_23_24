@@ -46,7 +46,7 @@ library(tidyverse)
     ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
     ✔ dplyr     1.1.3     ✔ readr     2.1.4
     ✔ forcats   1.0.0     ✔ stringr   1.5.1
-    ✔ ggplot2   3.4.3     ✔ tibble    3.2.1
+    ✔ ggplot2   3.4.4     ✔ tibble    3.2.1
     ✔ lubridate 1.9.3     ✔ tidyr     1.3.0
     ✔ purrr     1.0.2     
     ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
@@ -98,7 +98,15 @@ library(gridExtra)
 
 ``` r
 library(readr)
+library(gt)
 ```
+
+
+    Attaching package: 'gt'
+
+    The following object is masked from 'package:openintro':
+
+        sp500
 
 # 1: Exploring One Categorical Variable
 
@@ -120,7 +128,7 @@ dataset.](http://openintrostat.github.io/openintro/reference/immigration.html)
 
 2.  What are the observational units?
 
-    "910 randomly sampled registered voters in Tampa, FL"
+    “910 randomly sampled registered voters in Tampa, FL”
 
 3.  How many observations are there? (You can now run the code to help
     answer this question.)
@@ -223,15 +231,426 @@ by the total number of respondents.
 ``` r
 immigration |>
   count(political) |>
-  mutate(proportion = n / sum(n)) 
+  mutate(proportion = n / sum(n)) |>
+  mutate(percentage = proportion*100) |>
+  gt()
 ```
 
-    # A tibble: 3 × 3
-      political        n proportion
-      <fct>        <int>      <dbl>
-    1 conservative   372      0.409
-    2 liberal        175      0.192
-    3 moderate       363      0.399
+<div id="xvbhucdahs" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#xvbhucdahs table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+&#10;#xvbhucdahs thead, #xvbhucdahs tbody, #xvbhucdahs tfoot, #xvbhucdahs tr, #xvbhucdahs td, #xvbhucdahs th {
+  border-style: none;
+}
+&#10;#xvbhucdahs p {
+  margin: 0;
+  padding: 0;
+}
+&#10;#xvbhucdahs .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+&#10;#xvbhucdahs .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+&#10;#xvbhucdahs .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+&#10;#xvbhucdahs .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+&#10;#xvbhucdahs .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+&#10;#xvbhucdahs .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+&#10;#xvbhucdahs .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+&#10;#xvbhucdahs .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+&#10;#xvbhucdahs .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+&#10;#xvbhucdahs .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+&#10;#xvbhucdahs .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+&#10;#xvbhucdahs .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+&#10;#xvbhucdahs .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+&#10;#xvbhucdahs .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+&#10;#xvbhucdahs .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+&#10;#xvbhucdahs .gt_from_md > :first-child {
+  margin-top: 0;
+}
+&#10;#xvbhucdahs .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+&#10;#xvbhucdahs .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+&#10;#xvbhucdahs .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+&#10;#xvbhucdahs .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+&#10;#xvbhucdahs .gt_row_group_first td {
+  border-top-width: 2px;
+}
+&#10;#xvbhucdahs .gt_row_group_first th {
+  border-top-width: 2px;
+}
+&#10;#xvbhucdahs .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+&#10;#xvbhucdahs .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+&#10;#xvbhucdahs .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+&#10;#xvbhucdahs .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+&#10;#xvbhucdahs .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+&#10;#xvbhucdahs .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+&#10;#xvbhucdahs .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+&#10;#xvbhucdahs .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+&#10;#xvbhucdahs .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+&#10;#xvbhucdahs .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+&#10;#xvbhucdahs .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+&#10;#xvbhucdahs .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+&#10;#xvbhucdahs .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+&#10;#xvbhucdahs .gt_left {
+  text-align: left;
+}
+&#10;#xvbhucdahs .gt_center {
+  text-align: center;
+}
+&#10;#xvbhucdahs .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+&#10;#xvbhucdahs .gt_font_normal {
+  font-weight: normal;
+}
+&#10;#xvbhucdahs .gt_font_bold {
+  font-weight: bold;
+}
+&#10;#xvbhucdahs .gt_font_italic {
+  font-style: italic;
+}
+&#10;#xvbhucdahs .gt_super {
+  font-size: 65%;
+}
+&#10;#xvbhucdahs .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+&#10;#xvbhucdahs .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+&#10;#xvbhucdahs .gt_indent_1 {
+  text-indent: 5px;
+}
+&#10;#xvbhucdahs .gt_indent_2 {
+  text-indent: 10px;
+}
+&#10;#xvbhucdahs .gt_indent_3 {
+  text-indent: 15px;
+}
+&#10;#xvbhucdahs .gt_indent_4 {
+  text-indent: 20px;
+}
+&#10;#xvbhucdahs .gt_indent_5 {
+  text-indent: 25px;
+}
+</style>
+<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+  <thead>
+    &#10;    <tr class="gt_col_headings">
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="political">political</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="n">n</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="proportion">proportion</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="percentage">percentage</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td headers="political" class="gt_row gt_center">conservative</td>
+<td headers="n" class="gt_row gt_right">372</td>
+<td headers="proportion" class="gt_row gt_right">0.4087912</td>
+<td headers="percentage" class="gt_row gt_right">40.87912</td></tr>
+    <tr><td headers="political" class="gt_row gt_center">liberal</td>
+<td headers="n" class="gt_row gt_right">175</td>
+<td headers="proportion" class="gt_row gt_right">0.1923077</td>
+<td headers="percentage" class="gt_row gt_right">19.23077</td></tr>
+    <tr><td headers="political" class="gt_row gt_center">moderate</td>
+<td headers="n" class="gt_row gt_right">363</td>
+<td headers="proportion" class="gt_row gt_right">0.3989011</td>
+<td headers="percentage" class="gt_row gt_right">39.89011</td></tr>
+  </tbody>
+  &#10;  
+</table>
+</div>
 
 ## 1.4 Arranging the table
 
@@ -257,16 +676,422 @@ line of code to what we’ve already created will do just that.
 ``` r
 immigration |>
   count(political) |>
-  mutate(proportion = n / sum(n)) |>
-  arrange(desc(proportion))
+  mutate(proportion = n / sum(n)) |> 
+  arrange(desc(proportion)) |>
+  gt()
 ```
 
-    # A tibble: 3 × 3
-      political        n proportion
-      <fct>        <int>      <dbl>
-    1 conservative   372      0.409
-    2 moderate       363      0.399
-    3 liberal        175      0.192
+<div id="otxebyawsv" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#otxebyawsv table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+&#10;#otxebyawsv thead, #otxebyawsv tbody, #otxebyawsv tfoot, #otxebyawsv tr, #otxebyawsv td, #otxebyawsv th {
+  border-style: none;
+}
+&#10;#otxebyawsv p {
+  margin: 0;
+  padding: 0;
+}
+&#10;#otxebyawsv .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+&#10;#otxebyawsv .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+&#10;#otxebyawsv .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+&#10;#otxebyawsv .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+&#10;#otxebyawsv .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+&#10;#otxebyawsv .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+&#10;#otxebyawsv .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+&#10;#otxebyawsv .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+&#10;#otxebyawsv .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+&#10;#otxebyawsv .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+&#10;#otxebyawsv .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+&#10;#otxebyawsv .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+&#10;#otxebyawsv .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+&#10;#otxebyawsv .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+&#10;#otxebyawsv .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+&#10;#otxebyawsv .gt_from_md > :first-child {
+  margin-top: 0;
+}
+&#10;#otxebyawsv .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+&#10;#otxebyawsv .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+&#10;#otxebyawsv .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+&#10;#otxebyawsv .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+&#10;#otxebyawsv .gt_row_group_first td {
+  border-top-width: 2px;
+}
+&#10;#otxebyawsv .gt_row_group_first th {
+  border-top-width: 2px;
+}
+&#10;#otxebyawsv .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+&#10;#otxebyawsv .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+&#10;#otxebyawsv .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+&#10;#otxebyawsv .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+&#10;#otxebyawsv .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+&#10;#otxebyawsv .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+&#10;#otxebyawsv .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+&#10;#otxebyawsv .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+&#10;#otxebyawsv .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+&#10;#otxebyawsv .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+&#10;#otxebyawsv .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+&#10;#otxebyawsv .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+&#10;#otxebyawsv .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+&#10;#otxebyawsv .gt_left {
+  text-align: left;
+}
+&#10;#otxebyawsv .gt_center {
+  text-align: center;
+}
+&#10;#otxebyawsv .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+&#10;#otxebyawsv .gt_font_normal {
+  font-weight: normal;
+}
+&#10;#otxebyawsv .gt_font_bold {
+  font-weight: bold;
+}
+&#10;#otxebyawsv .gt_font_italic {
+  font-style: italic;
+}
+&#10;#otxebyawsv .gt_super {
+  font-size: 65%;
+}
+&#10;#otxebyawsv .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+&#10;#otxebyawsv .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+&#10;#otxebyawsv .gt_indent_1 {
+  text-indent: 5px;
+}
+&#10;#otxebyawsv .gt_indent_2 {
+  text-indent: 10px;
+}
+&#10;#otxebyawsv .gt_indent_3 {
+  text-indent: 15px;
+}
+&#10;#otxebyawsv .gt_indent_4 {
+  text-indent: 20px;
+}
+&#10;#otxebyawsv .gt_indent_5 {
+  text-indent: 25px;
+}
+</style>
+<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+  <thead>
+    &#10;    <tr class="gt_col_headings">
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="political">political</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="n">n</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="proportion">proportion</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td headers="political" class="gt_row gt_center">conservative</td>
+<td headers="n" class="gt_row gt_right">372</td>
+<td headers="proportion" class="gt_row gt_right">0.4087912</td></tr>
+    <tr><td headers="political" class="gt_row gt_center">moderate</td>
+<td headers="n" class="gt_row gt_right">363</td>
+<td headers="proportion" class="gt_row gt_right">0.3989011</td></tr>
+    <tr><td headers="political" class="gt_row gt_center">liberal</td>
+<td headers="n" class="gt_row gt_right">175</td>
+<td headers="proportion" class="gt_row gt_right">0.1923077</td></tr>
+  </tbody>
+  &#10;  
+</table>
+</div>
 
 ## 1.5: Build a Bar Graph
 
@@ -432,15 +1257,439 @@ here.](https://openintro-ims.netlify.app/explore-categorical.html#chp4-exercises
 immigration |>
   count(political, response) |>
   pivot_wider(names_from = political, values_from = n) |>
-  adorn_totals(where = c("row", "col"))
+  adorn_totals(where = c("row", "col")) |>
+  gt()
 ```
 
-                  response conservative liberal moderate Total
-     Apply for citizenship           57     101      120   278
-              Guest worker          121      28      113   262
-         Leave the country          179      45      126   350
-                  Not sure           15       1        4    20
-                     Total          372     175      363   910
+<div id="vmsafhierv" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#vmsafhierv table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+&#10;#vmsafhierv thead, #vmsafhierv tbody, #vmsafhierv tfoot, #vmsafhierv tr, #vmsafhierv td, #vmsafhierv th {
+  border-style: none;
+}
+&#10;#vmsafhierv p {
+  margin: 0;
+  padding: 0;
+}
+&#10;#vmsafhierv .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+&#10;#vmsafhierv .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+&#10;#vmsafhierv .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+&#10;#vmsafhierv .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+&#10;#vmsafhierv .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+&#10;#vmsafhierv .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+&#10;#vmsafhierv .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+&#10;#vmsafhierv .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+&#10;#vmsafhierv .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+&#10;#vmsafhierv .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+&#10;#vmsafhierv .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+&#10;#vmsafhierv .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+&#10;#vmsafhierv .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+&#10;#vmsafhierv .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+&#10;#vmsafhierv .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+&#10;#vmsafhierv .gt_from_md > :first-child {
+  margin-top: 0;
+}
+&#10;#vmsafhierv .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+&#10;#vmsafhierv .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+&#10;#vmsafhierv .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+&#10;#vmsafhierv .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+&#10;#vmsafhierv .gt_row_group_first td {
+  border-top-width: 2px;
+}
+&#10;#vmsafhierv .gt_row_group_first th {
+  border-top-width: 2px;
+}
+&#10;#vmsafhierv .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+&#10;#vmsafhierv .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+&#10;#vmsafhierv .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+&#10;#vmsafhierv .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+&#10;#vmsafhierv .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+&#10;#vmsafhierv .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+&#10;#vmsafhierv .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+&#10;#vmsafhierv .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+&#10;#vmsafhierv .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+&#10;#vmsafhierv .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+&#10;#vmsafhierv .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+&#10;#vmsafhierv .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+&#10;#vmsafhierv .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+&#10;#vmsafhierv .gt_left {
+  text-align: left;
+}
+&#10;#vmsafhierv .gt_center {
+  text-align: center;
+}
+&#10;#vmsafhierv .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+&#10;#vmsafhierv .gt_font_normal {
+  font-weight: normal;
+}
+&#10;#vmsafhierv .gt_font_bold {
+  font-weight: bold;
+}
+&#10;#vmsafhierv .gt_font_italic {
+  font-style: italic;
+}
+&#10;#vmsafhierv .gt_super {
+  font-size: 65%;
+}
+&#10;#vmsafhierv .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+&#10;#vmsafhierv .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+&#10;#vmsafhierv .gt_indent_1 {
+  text-indent: 5px;
+}
+&#10;#vmsafhierv .gt_indent_2 {
+  text-indent: 10px;
+}
+&#10;#vmsafhierv .gt_indent_3 {
+  text-indent: 15px;
+}
+&#10;#vmsafhierv .gt_indent_4 {
+  text-indent: 20px;
+}
+&#10;#vmsafhierv .gt_indent_5 {
+  text-indent: 25px;
+}
+</style>
+<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+  <thead>
+    &#10;    <tr class="gt_col_headings">
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="response">response</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="conservative">conservative</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="liberal">liberal</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="moderate">moderate</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="Total">Total</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td headers="response" class="gt_row gt_center">Apply for citizenship</td>
+<td headers="conservative" class="gt_row gt_right">57</td>
+<td headers="liberal" class="gt_row gt_right">101</td>
+<td headers="moderate" class="gt_row gt_right">120</td>
+<td headers="Total" class="gt_row gt_right">278</td></tr>
+    <tr><td headers="response" class="gt_row gt_center">Guest worker</td>
+<td headers="conservative" class="gt_row gt_right">121</td>
+<td headers="liberal" class="gt_row gt_right">28</td>
+<td headers="moderate" class="gt_row gt_right">113</td>
+<td headers="Total" class="gt_row gt_right">262</td></tr>
+    <tr><td headers="response" class="gt_row gt_center">Leave the country</td>
+<td headers="conservative" class="gt_row gt_right">179</td>
+<td headers="liberal" class="gt_row gt_right">45</td>
+<td headers="moderate" class="gt_row gt_right">126</td>
+<td headers="Total" class="gt_row gt_right">350</td></tr>
+    <tr><td headers="response" class="gt_row gt_center">Not sure</td>
+<td headers="conservative" class="gt_row gt_right">15</td>
+<td headers="liberal" class="gt_row gt_right">1</td>
+<td headers="moderate" class="gt_row gt_right">4</td>
+<td headers="Total" class="gt_row gt_right">20</td></tr>
+    <tr><td headers="response" class="gt_row gt_center">Total</td>
+<td headers="conservative" class="gt_row gt_right">372</td>
+<td headers="liberal" class="gt_row gt_right">175</td>
+<td headers="moderate" class="gt_row gt_right">363</td>
+<td headers="Total" class="gt_row gt_right">910</td></tr>
+  </tbody>
+  &#10;  
+</table>
+</div>
 
 ## 2.2: Contingency Table with Proportions.
 
@@ -460,18 +1709,435 @@ saying they support applying for citizenship?”
  immigration|>
   count(political, response) |> 
   group_by(political) |>
-  mutate(proportion = n / sum(n)) |> 
+  mutate(proportion = round(n / sum(n), digits = 4)) |> 
   select(-n) |>
-  pivot_wider(names_from = political, values_from = proportion)
+  pivot_wider(names_from = political, values_from = proportion) |>
+  gt()
 ```
 
-    # A tibble: 4 × 4
-      response              conservative liberal moderate
-      <fct>                        <dbl>   <dbl>    <dbl>
-    1 Apply for citizenship       0.153  0.577     0.331 
-    2 Guest worker                0.325  0.16      0.311 
-    3 Leave the country           0.481  0.257     0.347 
-    4 Not sure                    0.0403 0.00571   0.0110
+<div id="panciugljt" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#panciugljt table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+&#10;#panciugljt thead, #panciugljt tbody, #panciugljt tfoot, #panciugljt tr, #panciugljt td, #panciugljt th {
+  border-style: none;
+}
+&#10;#panciugljt p {
+  margin: 0;
+  padding: 0;
+}
+&#10;#panciugljt .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+&#10;#panciugljt .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+&#10;#panciugljt .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+&#10;#panciugljt .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+&#10;#panciugljt .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+&#10;#panciugljt .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+&#10;#panciugljt .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+&#10;#panciugljt .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+&#10;#panciugljt .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+&#10;#panciugljt .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+&#10;#panciugljt .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+&#10;#panciugljt .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+&#10;#panciugljt .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+&#10;#panciugljt .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+&#10;#panciugljt .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+&#10;#panciugljt .gt_from_md > :first-child {
+  margin-top: 0;
+}
+&#10;#panciugljt .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+&#10;#panciugljt .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+&#10;#panciugljt .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+&#10;#panciugljt .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+&#10;#panciugljt .gt_row_group_first td {
+  border-top-width: 2px;
+}
+&#10;#panciugljt .gt_row_group_first th {
+  border-top-width: 2px;
+}
+&#10;#panciugljt .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+&#10;#panciugljt .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+&#10;#panciugljt .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+&#10;#panciugljt .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+&#10;#panciugljt .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+&#10;#panciugljt .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+&#10;#panciugljt .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+&#10;#panciugljt .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+&#10;#panciugljt .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+&#10;#panciugljt .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+&#10;#panciugljt .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+&#10;#panciugljt .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+&#10;#panciugljt .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+&#10;#panciugljt .gt_left {
+  text-align: left;
+}
+&#10;#panciugljt .gt_center {
+  text-align: center;
+}
+&#10;#panciugljt .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+&#10;#panciugljt .gt_font_normal {
+  font-weight: normal;
+}
+&#10;#panciugljt .gt_font_bold {
+  font-weight: bold;
+}
+&#10;#panciugljt .gt_font_italic {
+  font-style: italic;
+}
+&#10;#panciugljt .gt_super {
+  font-size: 65%;
+}
+&#10;#panciugljt .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+&#10;#panciugljt .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+&#10;#panciugljt .gt_indent_1 {
+  text-indent: 5px;
+}
+&#10;#panciugljt .gt_indent_2 {
+  text-indent: 10px;
+}
+&#10;#panciugljt .gt_indent_3 {
+  text-indent: 15px;
+}
+&#10;#panciugljt .gt_indent_4 {
+  text-indent: 20px;
+}
+&#10;#panciugljt .gt_indent_5 {
+  text-indent: 25px;
+}
+</style>
+<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+  <thead>
+    &#10;    <tr class="gt_col_headings">
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="response">response</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="conservative">conservative</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="liberal">liberal</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" scope="col" id="moderate">moderate</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td headers="response" class="gt_row gt_center">Apply for citizenship</td>
+<td headers="conservative" class="gt_row gt_right">0.1532</td>
+<td headers="liberal" class="gt_row gt_right">0.5771</td>
+<td headers="moderate" class="gt_row gt_right">0.3306</td></tr>
+    <tr><td headers="response" class="gt_row gt_center">Guest worker</td>
+<td headers="conservative" class="gt_row gt_right">0.3253</td>
+<td headers="liberal" class="gt_row gt_right">0.1600</td>
+<td headers="moderate" class="gt_row gt_right">0.3113</td></tr>
+    <tr><td headers="response" class="gt_row gt_center">Leave the country</td>
+<td headers="conservative" class="gt_row gt_right">0.4812</td>
+<td headers="liberal" class="gt_row gt_right">0.2571</td>
+<td headers="moderate" class="gt_row gt_right">0.3471</td></tr>
+    <tr><td headers="response" class="gt_row gt_center">Not sure</td>
+<td headers="conservative" class="gt_row gt_right">0.0403</td>
+<td headers="liberal" class="gt_row gt_right">0.0057</td>
+<td headers="moderate" class="gt_row gt_right">0.0110</td></tr>
+  </tbody>
+  &#10;  
+</table>
+</div>
+
+``` r
+?round
+```
 
 ## 2.3: Visualize Two Categorical Variables with a Filled Bar Plot
 
