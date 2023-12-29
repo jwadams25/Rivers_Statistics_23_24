@@ -32,7 +32,7 @@ Now that you've built a baseline understanding of least squares regressions, you
 
 # Libraries
 
-## **Opening Tasks and Questions - Run the following code chunk**
+### **Opening Tasks and Questions - Run the following code chunk**
 
 ```{r Libraries, message=FALSE, warning=FALSE}
 library(tidyverse)
