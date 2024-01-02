@@ -1,0 +1,243 @@
+---
+title: "Name That Output and Write That Code"
+format: 
+  revealjs:
+    code-link: true
+    chalkboard: true
+    fig-align: center
+    incremental: true 
+    theme: dark
+    smaller: true
+    scrollable: true
+editor: visual
+execute: 
+  echo: true
+  warning: false
+---
+
+```{r packages}
+#| include: false
+#| warning: false
+#| message: false
+#| echo: false
+
+library(tidyverse)
+library(openintro)
+library(janitor)
+library(knitr)
+library(kableExtra)
+library(gridExtra)
+library(readr)
+library(gt)
+library(nflfastR)
+library(nflreadr)
+library(palmerpenguins)
+library(ggridges)
+library(skimr)
+```
+
+## Name that Output: Building Blocks
+
+Tips:
+
+-   Go line by line
+
+-   Try to draw on paper or your iPad what will appear
+
+```{r data frame}
+#| code-line-numbers: "|1|2-4|5"
+#| output-location: slide
+rivers_data <- data.frame(
+                    important_numbers = c(1915,333,6,12),
+                    riv_colors = c("red", "white", "black", "gray")
+                    )
+rivers_data
+```
+
+## Name that Output: Visualize 1 Numerical Variable Description
+
+-   It's winter so let's explore some data about penguins!
+
+-   We will explore the `penguins` data frame from the [palmerpenguins](https://allisonhorst.github.io/palmerpenguins/) package. The data is the "size measurements for adult foraging penguins near Palmer Station, Antarctica." body_mass_g is the body mass of the penguin in grams
+
+-   Draw a sketch of what visualization the following code will produce.
+
+```{r viz one var}
+#| code-line-numbers: "|1|2|3|4|5"
+#| output-location: slide
+
+penguins|>
+  ggplot(aes(x = body_mass_g)) +
+  geom_histogram(binwidth = 250, fill = "orange", color = "black") +
+  scale_x_continuous(limits = c(2500, 6500), breaks = seq(2500, 6500, 500))
+```
+
+## Write that Code: Upgrade the Visualization
+
+```{r upgrade hist}
+penguins|>
+  ggplot(aes(x = body_mass_g)) +
+  geom_histogram(binwidth = 250, fill = "orange", color = "black") +
+  scale_x_continuous(limits = c(2500, 6500), breaks = seq(2500, 6500, 500))
+```
+
+## Write that Code: KEY Upgrade the Visualization
+
+```{r upgrade hist key}
+#| code-line-numbers: "|2-4|9-12|14|15-25"
+#| output-location: slide
+# Calculate the median value of total income
+penguins_na <- penguins |>
+                filter(!is.na(body_mass_g))
+median_weight <- median(penguins_na$body_mass_g)
+
+penguins|>
+  ggplot(aes(x = body_mass_g)) +
+  geom_histogram(binwidth = 250, fill = "orange", color = "black") +
+    labs(x = "Body Mass of Penguins (grams)", 
+       y = "Number of Penguins", 
+       title = "How much do penguins tend to weigh?", 
+       subtitle = "Data from a sample of 344 penguins near Palmer Station, Antarctica") +
+  scale_x_continuous(limits = c(2500, 6500), breaks = seq(2500, 6500, 500)) +
+  theme_minimal() +
+  # Add median line with color and label
+  geom_vline(aes(xintercept = median_weight), color = "navy", linetype = "dashed") +
+  # Add text with median value next to the line
+  annotate(
+    "text",
+    label = paste("Median:", round(median_weight, digits = 2)),
+    x = median_weight + 100,
+    y = 45,
+    color = "navy",
+    hjust = "left"
+  )
+```
+
+## Name that Output: Visualize 1 Categorical Variable
+
+-   Sketch what this code will produce.
+
+-   What question(s) would cause you to create this visualization?
+
+```{r bar}
+#| code-line-numbers: "|1|2|3|4-7|8"
+#| output-location: slide
+penguins |>
+  ggplot(aes(y= fct_rev(fct_infreq(species)), fill = species)) +
+  geom_bar() +
+  labs(x = "Number of Penguins", 
+       y = "", 
+       title = "Species of Penguins", 
+       subtitle = "Data from a sample of 344 penguins near Palmer Station, Antarctica") +
+  theme_minimal()
+```
+
+## Write that Code: Visualize 1 Categorical Variable with a Table
+
+-   Write code that will create a table showing the number penguins in each species and the proportion of each species.
+
+```{r viz for table}
+#| echo: false
+#| output-location: slide
+penguins |>
+  ggplot(aes(y= fct_rev(fct_infreq(species)), fill = species)) +
+  geom_bar() +
+  labs(x = "Number of Penguins", 
+       y = "", 
+       title = "Species of Penguins", 
+       subtitle = "Data from a sample of 344 penguins near Palmer Station, Antarctica") +
+  theme_minimal()
+```
+
+## Write that Code: KEY Visualize 1 Categorical Variable with a Table
+
+```{r table}
+#| code-line-numbers: "|1|2|3|4|5"
+#| output-location: column
+penguins |>
+  count(species) |>
+  mutate(proportion = n/sum(n)) |>
+  arrange(desc(n)) |>
+  gt()
+```
+
+## Write that Code: Generating Summary Statistics
+
+-   What code would generate the summary statistics to support the following histogram.
+
+```{r one var stats}
+#| echo: false
+penguins |>
+  ggplot(aes(x= flipper_length_mm)) +
+  geom_histogram()
+```
+
+## Write that Code: KEY Generating Summary Statistics
+
+```{r sum stats one var}
+penguins |>
+  skim(flipper_length_mm)
+```
+
+## Write that Code: Generating Summary Statistics Across Groups
+
+-   What did you learn from this visualization that you could not have learned from the previous one?
+
+```{r two var stats}
+#| echo: false
+penguins |>
+  ggplot(aes(x= flipper_length_mm, fill = species, color = species)) +
+  geom_histogram(position = "identity", alpha = 0.5)
+```
+
+## Write that Code: KEY Generating Summary Statistics Across Groups
+
+```{r sum stats groups}
+penguins|>
+  group_by(species) |>
+  skim(flipper_length_mm)
+```
+
+## Challenge! Write that code!
+
+```{r 3 var scatter}
+#| echo: false
+penguins |>
+  ggplot(aes(x = flipper_length_mm, y = bill_length_mm, color = species)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(x = "Flipper Length (mm)", 
+       y = "Bill Length (mm)", 
+       title = "What is the relationship between the length of a penguins\nflipper and bill length across three different penguin species?", 
+       caption = "Data from a sample of 344 penguins near Palmer Station, Antarctica", 
+       color = "Species") +
+  theme_minimal()
+```
+
+## Challenge KEY! Write that code!
+
+```{r 3 var scatter key}
+#| code-line-numbers: "|2|3|4|5-10"
+penguins |>
+  ggplot(aes(x = flipper_length_mm, y = bill_length_mm, color = species)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(x = "Flipper Length (mm)", 
+       y = "Bill Length (mm)", 
+       title = "What is the relationship between the length of a penguins\nflipper and bill length across three different penguin species?", 
+       caption = "Data from a sample of 344 penguins near Palmer Station, Antarctica", 
+       color = "Species") +
+  theme_minimal()
+```
+
+## Sources:
+
+<https://allisonhorst.github.io/palmerpenguins/>
+
+<https://quarto.org/docs/presentations/revealjs/>
+
+<https://github.com/OpenIntroStat/ims>
+
+<https://sl.bing.net/jpUndVRcqSy>
+
+<https://sl.bing.net/jLritSfGGia>
