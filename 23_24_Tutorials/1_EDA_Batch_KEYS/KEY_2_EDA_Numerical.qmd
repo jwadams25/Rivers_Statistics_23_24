@@ -477,17 +477,7 @@ I used Bing in Creative mode to help generate this answer. Here is the conversat
 
 Me:
 
-How do I add a median line to the following visualization? I also want to add text next to the line that gives the number of the median. loan50_small \|\>
-ggplot(aes(x = total_income)) +
-geom_density(binwidth = 25000, fill = "#002a4e", color = "#ef4123") +
-labs(
-title ="What incomes do people who get loans from Lending Club tend to have?",
-subtitle = "Sample of 50 loans from Lending Club",
-x = "Total Income (\$)",
-y = "Number of Loans"
-) +
-scale_x_continuous(limits = c(0, 400000), breaks = seq(0, 400000, 50000)) +
-theme_minimal()
+How do I add a median line to the following visualization? I also want to add text next to the line that gives the number of the median. loan50_small \|\> ggplot(aes(x = total_income)) + geom_density(binwidth = 25000, fill = "#002a4e", color = "#ef4123") + labs( title ="What incomes do people who get loans from Lending Club tend to have?", subtitle = "Sample of 50 loans from Lending Club", x = "Total Income (\$)", y = "Number of Loans" ) + scale_x_continuous(limits = c(0, 400000), breaks = seq(0, 400000, 50000)) + theme_minimal()
 
 Bing:
 
