@@ -8,6 +8,9 @@ format:
     fig-height: 4
     toc: true
     toc_depth: 4
+execute: 
+  warning: false
+  error: false
 ---
 
 # EDA with Categorical Data
