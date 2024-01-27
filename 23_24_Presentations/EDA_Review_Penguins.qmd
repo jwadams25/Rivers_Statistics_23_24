@@ -1,0 +1,223 @@
+---
+title: "EDA Review with Penguins Data"
+format: 
+  revealjs:
+    code-link: true
+    chalkboard: true
+    fig-align: center
+    incremental: true 
+    theme: dark
+    smaller: true
+    scrollable: true
+editor: visual
+execute: 
+  echo: true
+  warning: false
+---
+
+```{r packages}
+#| include: false
+#| warning: false
+#| message: false
+#| echo: false
+
+library(tidyverse)
+library(openintro)
+library(janitor)
+library(knitr)
+library(kableExtra)
+library(gridExtra)
+library(readr)
+library(gt)
+library(palmerpenguins)
+library(ggridges)
+library(skimr)
+```
+
+## Palmer Penguins Data
+
+::: nonincremental
+-   We will explore the `penguins` data frame from the [palmerpenguins](https://allisonhorst.github.io/palmerpenguins/) package. The data is the "size measurements for adult foraging penguins near Palmer Station, Antarctica." body_mass_g is the body mass of the penguin in grams
+-   Below you see the first 10 rows of the dataframe
+:::
+
+```{r data}
+head(penguins,10) |>
+  gt()
+```
+
+## Palmer Penguins Data
+
+-   How many penguins are in the dataframe?
+
+-   How many variables were recorded about these penguins?
+
+```{r data basics}
+#| output-location: slide
+glimpse(penguins)
+```
+
+## How many grams do the penguins tend to weigh?
+
+-   What variable from the data frame will you need to use to answer this question?
+
+-   What type of variable is it?
+
+-   What is a visualization you could make to explore this question?
+
+-   What summary statistics might you want to generate?
+
+## How many grams do the penguins tend to weigh? 
+
+### Visualization
+
+-   Create a histogram to visualize the `body_mass_g` variable. Be sure to *add labels to each axis* and *a title*.
+
+## How many grams do the penguins tend to weigh? 
+
+### Visualization
+
+```{r visualize weight}
+penguins |>
+  ggplot(aes(x = body_mass_g)) +
+  geom_histogram() +
+  labs(
+    title = "How many grams do penguins tend to weigh?",
+    x = "Weight of Penguins in Grams",
+    y = "Number of Penguins") +
+  theme_minimal()
+```
+
+## How many grams do the penguins tend to weigh? 
+
+### Statistics
+
+::: nonincremental
+-   Generate these statistics
+:::
+
+```{r weight statistics}
+#| echo: false
+penguins |>
+  select(body_mass_g) |>
+  skim()
+```
+
+## How many grams do the penguins tend to weigh? 
+
+### Statistics
+
+```{r weight statistics show}
+penguins |>
+  select(body_mass_g) |>
+  skim()
+```
+
+## How many grams do the penguins tend to weigh? 
+
+-   Answer the question by referencing the shape, center, and spread of the distribution.
+
+## Is there a relationship between the species and weight?
+
+-   What variables from the data frame will you need to use to answer this question?
+
+-   What type is each variable?
+
+-   What is a visualization you could make to explore this question?
+
+-   What summary statistics might you want to generate?
+
+## Is there a relationship between species and weight? 
+
+### Visualize
+
+-   Use the `facet_wrap` function to create a histogram for each species. (hint: copy and paste is your friend!)
+
+-   The histograms should be positioned vertically. In other words you have a stack of 3 histograms.
+
+-   Adjust the labs to match this new visualization
+
+-   *Bonus:* Make each histogram a different color
+
+## Is there a relationship between species and weight?
+
+### Visualize
+
+```{r weight species}
+#| output-location: column
+penguins |>
+  ggplot(aes(x = body_mass_g, fill = species)) +
+  geom_histogram() +
+  labs(
+    title = "How many grams do penguins tend to weigh?",
+    subtitle = "Broken down by species",
+    x = "Weight of Penguins in Grams",
+    y = "Number of Penguins") +
+  theme_minimal() +
+  facet_wrap(~species, nrow = 3)
+```
+
+## Is there a relationship between species and weight?
+
+### Statistics
+
+-   Generate the necessary summary statistics to help you answer the question.
+
+```{r stats weight species hidden}
+#| echo: false
+penguins |>
+  group_by(species) |>
+  select(body_mass_g) |>
+  skim()
+```
+
+## Is there a relationship between species and weight?
+
+```{r stats weight species}
+penguins |>
+  group_by(species) |>
+  select(body_mass_g) |>
+  skim()
+
+```
+
+## In which islands in the Palmer Archipelago were these penguins found?
+
+-   What variable from the data frame will you need to use to answer this question?
+
+-   What type of variable is it?
+
+-   What is a visualization you could make to explore this question?
+
+-   What summary statistics might you want to generate?
+
+## In which islands in the Palmer Archipelago were these penguins found?
+
+-   Create a table and a bar graph to explore this data.
+
+-   Bonus: Have the table include the proportion of penguins located at each island.
+
+## In which islands in the Palmer Archipelago were these penguins found? Table
+
+```{r island table}
+#| output-location: column
+penguins |>
+  count(island) |>
+  mutate(proportion = (n/sum(n)))|>
+  gt()
+```
+
+## In which islands in the Palmer Archipelago were these penguins found? Bar
+
+```{r island bar}
+#| output-location: column
+penguins |>
+  ggplot(aes(y = island, color = island)) +
+  geom_bar() +
+  labs(
+    title = "islands in the Palmer Archipelago", 
+    subtitle = "where penguins were found",
+    x = "Number of Penguins"
+  )
+           
+```
