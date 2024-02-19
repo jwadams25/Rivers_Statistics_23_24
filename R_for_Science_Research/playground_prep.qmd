@@ -1,0 +1,180 @@
+---
+title: "Playground Prep for R for Science Research"
+format: html
+editor: visual
+---
+
+```{r}
+#| include: false
+#| warning: false
+#| message: false
+#| echo: false
+
+library(tidyverse)
+library(openintro)
+library(janitor)
+library(knitr)
+library(kableExtra)
+library(gridExtra)
+library(readr)
+library(gt)
+library(palmerpenguins)
+library(ggridges)
+library(skimr)
+```
+
+```{r}
+view(mtcars)
+```
+
+### Does treatment using embryonic stem cells (ESCs) help improve heart function following a heart attack?
+
+```{r data }
+stem_cell <- stem_cell |>
+  mutate(
+    trmt = if_else(trmt == "ctrl", "Control", "ESC"),
+    trmt = fct_relevel(trmt, "ESC", "Control"),
+    change = after - before
+  )
+
+stem_cell |>
+  group_by(trmt) |>
+  summarise(
+    n = n(),
+    mean = mean(change),
+    sd = sd(change)
+  ) 
+
+```
+
+```{r visualize}
+# Create the histograms
+stem_cell %>%
+  ggplot(aes(x = change)) +
+  geom_histogram(binwidth = 0.25, color = "black", fill = "white") +
+  facet_wrap(~trmt, nrow = 2) +
+  labs(
+    title = "Your Title Here",
+    x = "Change in Heart's Pumping Capacity",
+    y = "Count"
+  )
+
+```
+
+```{r ci for means}
+# Calculate the confidence interval
+confidence_interval <- t.test(change ~ trmt, data = stem_cell)$conf.int
+
+# Print the confidence interval
+print(confidence_interval)
+
+ t.test(change ~ trmt, data = stem_cell)
+```
+
+### This data set has been of interest to medical researchers who are studying the relation between habits and practices of expectant mothers and the birth of their children. We will work with a random sample of 1,000 cases from the data set released in 2014.
+
+```{r births data}
+glimpse(births14)
+view(births14)
+```
+
+```{r summary stats}
+births14 |>
+  filter(!is.na(habit)) |>
+  group_by(habit) |>
+  summarise(
+    mean = mean(weight),
+    std_dev = sd(weight),
+    count = n()
+  )
+
+```
+
+```{r weights and habit hist}
+births14 |>
+  filter(!is.na(habit)) |>
+  ggplot(aes(x = weight)) +
+  geom_histogram(binwidth = 0.25, color = "black", fill = "white") +
+  labs(
+    title = "Weights of Babies in the sample",
+    subtitle = "",
+    x = "Weight of Baby at Birth",
+    y = "Count"
+  )
+
+births14 |>
+  filter(!is.na(habit)) |>
+  ggplot(aes(x = weight)) +
+  geom_histogram(binwidth = 0.25, color = "black", fill = "white") +
+  facet_wrap(~habit, nrow = 2) +
+  labs(
+    title = "Comparing weights of babies across mothers",
+    subtitle = "who do and do not smoke",
+    x = "Weight of Baby at Birth",
+    y = "Count"
+  )
+
+median_income <- median(births$total_income)
+
+births14 |>
+  filter(!is.na(habit)) |>
+  ggplot(aes(x = weeks)) +
+  geom_histogram(binwidth = 1, color = "black", fill = "white") +
+  facet_wrap(~habit, nrow = 2) +
+  labs(
+    title = "Comparing weights of babies across mothers",
+    subtitle = "who do and do not smoke",
+    x = "Weight of Baby at Birth",
+    y = "Count"
+  ) +
+  geom_vline(aes(xintercept=mean(weeks)))
+
+    # Add median line with color and label
+  geom_vline(aes(xintercept = median_income, color = "Median"), linetype = "dashed") +
+  # Add text with median value next to the line
+  annotate(
+    "text",
+    label = paste("Median: $", round(median_income, digits = 0)),
+    x = median_income + 5000,
+    y = max(density) / 2,
+    color = "black",
+    hjust = "left"
+  )
+
+```
+
+```{r ci across habit}
+
+births14_fna <- births14 |>
+  filter(!is.na(habit))
+
+infernce_weight_habit <- t.test(weight ~ habit, data = births14_fna)
+
+print(infernce_weight_habit)
+
+births_smoker <- births14 |>
+  filter(habit == "smoker") |>
+  select(habit, weight)
+t.test(births_smoker$weight)
+
+births_nonsmoker <- births14 |>
+  filter(habit == "nonsmoker") |>
+  select(habit, weight)
+t.test(births_nonsmoker$weight)
+```
+
+Weights
+
+Statistics
+
+Weights by Smoking Habit
+
+Statistics
+
+Weeks by Smoking Habits
+
+Statistics
+
+Add Stats to the viz
+
+Weights vs Weeks

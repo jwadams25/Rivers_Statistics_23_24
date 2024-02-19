@@ -1,0 +1,227 @@
+---
+title: "Exploratory Data Analysis With R"
+subtitle: "Rivers School Science Researchers"
+format: 
+  revealjs:
+    code-link: true
+    chalkboard: true
+    fig-align: center
+    incremental: true 
+    theme: dark
+    smaller: true
+    scrollable: true
+editor: visual
+execute: 
+  echo: true
+  warning: false
+bibliography: "references.bib"
+---
+
+## Packages
+
+::: {#fig-elephants layout-ncol="2"}
+![Running the `Install.Packages` function = Building your shed full of toolboxes](images/Designer.png){width="30%"}
+
+![Running the `Library` function = Getting the tools out of the shed that you'll need to use](images/Designer%20(1).png){width="30%"}
+
+Install.Packages and Library
+:::
+
+## Start by Always Getting Your Toolboxes
+
+-   You do this by running the library function for each package you are going to use.
+
+-   For this tutorial, we will use.
+
+    -   `Tidyverse` is made up of a collection of packages that include tools making it easier to visualize, summarize, and wrangle data.
+
+    -   `Openintro` is a package referenced in our textbook, Introduction to Modern Statistics. Among other things, it includes a number of datasets. During this tutorial, you will generate similar visualizations to those seen when reading.
+
+-   The code you type and run
+
+    ```{r}
+    library(tidyverse)
+    library(openintro)
+    ?births14
+    ```
+
+## Questions to Ask to Start Getting to know your data
+
+-   What are the observational units/cases?
+
+-   What are the variables?
+
+-   How is my data organized?
+
+    -   You want Tidy Data
+
+        -   Each row is an observation
+
+        -   Each column is a variable
+
+## Data for this Introduction to EDA
+
+-   Throughout the rest of this tutorial we will explore the `births14`
+
+    -   This dataset is included in the `openintro` package
+
+    -   Since it is part of an R package can type `?births14` to access its documentation and learn more about it.
+
+-   Description
+
+    -   "Every year, the US releases to the public a large data set containing information on births recorded in the country. This data set has been of interest to medical researchers who are studying the relation between habits and practices of expectant mothers and the birth of their children. This is a random sample of 1,000 cases from the data set released in 2014."[@openintro]
+
+## Answering Questions to Start Getting to Know the `Births14` dataset
+
+-   Running the `head` function allows you to see the first 6 rows of the data frame
+
+    -   Type and run this code
+
+        ```{r}
+        head(births14)
+        ```
+
+## Answering Questions to Start Getting to Know the `Births14` dataset
+
+-   The glimpse function allows you to see how many variables, what type each is, and how many observations are in the data frame.
+
+    -   Type and Run this code
+
+        ```{r}
+        glimpse(births14)
+        ```
+
+## How much do babies in this sample tend to weigh?
+
+-   Start by visualizing the distribution of the `weight` variable.
+
+    ```{r}
+    #| output-location: column
+    #| code-line-numbers: "|1|2|3|4-9"
+    births14 |>
+      ggplot(aes(x = weight)) +
+      geom_histogram(binwidth = 0.5) +
+      labs(
+        title = "How much do babies in this sample weigh at birth?",
+        subtitle = "1000 babies in the United States from 2014",
+        x = "Weight (Pounds)",
+        y = "Number of Babies"
+      )
+    ```
+
+-   Notes:
+
+    -   \|\> is a pipe symbol and should be read as "AND THEN"
+
+    -   \+ is used to add layers to a ggplot.
+
+## How much do babies in this sample weigh? Statistics
+
+-   We now need to generate statistics to better describe the weights.
+
+-   Central Tendency
+
+    -   Mean
+
+    -   Median
+
+-   Spread of the data
+
+    -   Standard Deviation: Average distance from the mean
+
+    -   Interquartile Range: The middle 50% of the data
+
+## Code to generate these statistics
+
+```{r}
+births14 |> #<1>
+  filter(!is.na(weight)) |> #<2>
+  summarize( #<3>
+    Mean = mean(weight), #<4>
+    Median = median(weight), #<5>
+    Standard_Deviation = sd(weight), #<6>
+    IQR = IQR(weight) #<7>
+  )
+```
+
+1.  We'll start by asking the computer to reference the `births14` data
+2.  Next, we'll use the `filter` function remove out any observations where the weight was not recorded
+3.  `summarize` is the function we will use to generate the statistics.
+4.  `mean` is what is doing the calculation of the `weight` variable, while Mean is the name we are giving this calculation.
+5.  `median` is what is doing the calculation of the `weight` variable, while Median is the name we are giving this calculation.
+6.  `sd` is what is doing the calculation of the `weight` variable, while Standard_Deviation is the name we are giving this calculation.
+7.  `IQR` is what is doing the calculation of the `weight` variable, while IQR is the name we are giving this calculation.
+
+## More about ggplot layers
+
+![The Layers of ggplot](images/gglayers.png)
+
+## What is the relationship between an expecting mother's smoking habits and the weight of their baby? Visualize
+
+```{r}
+#| output-location: column
+#| code-line-numbers: "|2|5"
+births14 |>
+  filter(!is.na(habit)) |>
+  ggplot(aes(x = weight)) +
+  geom_histogram(binwidth = 0.5) +
+  facet_wrap(~habit, nrow = 2)
+```
+
+## What is the relationship between an expecting mother's smoking habits and the weight of their baby? Statistics
+
+The `group_by` function does as it says. It puts babies, in this case, into two groups, one for those with moms who smoked and one for those with moms who did not smoke.
+
+```{r}
+#| code-line-numbers: "|2|5"
+births14 |> 
+  filter(!is.na(weight)) |> 
+  group_by(habit) |>
+  summarize( 
+    Mean = mean(weight), 
+    Median = median(weight), 
+    Standard_Deviation = sd(weight), 
+    IQR = IQR(weight) 
+  )
+```
+
+## Is there a relationship between the weight of a baby and length of the pregnancy?
+
+```{r}
+#| output-location: column
+
+births14 |>
+  ggplot(aes(x=weeks, y = weight)) + #<1>
+  geom_point() + #<2>
+  labs(#<3>
+    title = "Weight vs Length of Pregnancy",
+    x = "Length of Pregnancy (weeks)",
+    y = "Weight (pounds)"
+  )
+```
+
+1.  We have to add an aesthetic to the y-axis.
+
+2.  `geom_point` will make the scatter plot
+
+3.  You can reuse the `labs` function and change what is inside the various parentheses
+
+## Adding a trend line to a scatter plot
+
+```{r}
+births14 |>
+  ggplot(aes(x=weeks, y = weight)) + 
+  geom_point() + 
+  geom_smooth(method = 'lm') + #<1>
+  labs(
+    title = "Weight vs Length of Pregnancy",
+    x = "Length of Pregnancy (weeks)",
+    y = "Weight (pounds)"
+  )
+```
+
+1.  geom_smooth will add in a trend line. You dictate the type of trend line by defining the method. In this case, I've chosen a `lm` or linear method for purposes of instruction.
+
+## Bibliography
+
+Rochette, R., & Lê, S. (2020). Grammar of graphics: gg basics. QCBS R Workshop Series. [1](https://owl.purdue.edu/owl/research_and_citation/apa_style/apa_formatting_and_style_guide/index.html)

@@ -1,0 +1,251 @@
+---
+title: "Introduction to EDA with R Tutorial"
+subtitle: "Rivers School Life Sciences Research"
+author: "Mr. Adams"
+editor: visual
+format: 
+  gfm:
+    fig-width: 8
+    fig-height: 4
+    toc: true
+    toc_depth: 4
+---
+
+## 1. Before You Begin
+
+Be sure to **read everything** as the structure of the tutorial is such that everything builds upon the items that came before it.
+
+::: {style="color: black; background-color: white; padding: 15px; border: 5px solid #FF585D; border-radius: 5px;"}
+Any text highlighted in this red border will require you to either **edit and run a code chunk or just run a code chunk**.
+:::
+
+::: {style="color: black; background-color: white; padding: 15px; border: 5px solid #006CB3; border-radius: 5px;"}
+Any text highlighted in this blue border will **require you to answer a question**. You can type your response directly in the box with the blue border.
+:::
+
+## 2. Start by Always Getting Your Toolboxes Out of the Shed.
+
+-   You do this by running the library function for each package you are going to use.
+
+-   For this tutorial, we will use.
+
+    -   `Tidyverse` is made up of a collection of packages that include tools making it easier to visualize, summarize, and wrangle data.
+
+    -   `Openintro` is a package referenced in our textbook, Introduction to Modern Statistics. Among other things, it includes a number of datasets. During this tutorial, you will generate similar visualizations to those seen when reading.
+
+::: {style="color: black; background-color: white; padding: 15px; border: 5px solid #FF585D; border-radius: 5px;"}
+**2a. Run the code below** to **install the packages**. This is akin to going to the store to buy some toolboxes.
+:::
+
+```{r packages}
+install.packages("tidyverse")
+install.packages("openintro")
+```
+
+::: {style="color: black; background-color: white; padding: 15px; border: 5px solid #FF585D; border-radius: 5px;"}
+**2b.** Now **run the code below** to load up the **libraries** for the packages you just downloaded. This is akin to going to getting out your toolboxes out of the shed so you can get to work.
+
+**Tips**:
+
+-   **In the future** you will just need to run this code **when you begin working**.
+
+-   If you ever get an error that says "could not find the fucntion .", then you need to go back and run the library code chunk.
+:::
+
+```{r libraries}
+library(tidyverse)
+library(openintro)
+```
+
+## 3. Data for this Introduction to EDA Tutorial
+
+-   Throughout the rest of this tutorial we will explore the `births14`
+
+    -   This dataset is included in the `openintro` package
+
+-   Description
+
+    -   "Every year, the US releases to the public a large data set containing information on births recorded in the country. This data set has been of interest to medical researchers who are studying the relation between habits and practices of expectant mothers and the birth of their children. This is a random sample of 1,000 cases from the data set released in 2014."[@openintro]
+
+## 4. Start Getting to know your data
+
+::: {style="color: black; background-color: white; padding: 15px; border: 5px solid #FF585D; border-radius: 5px;"}
+**4a.** In the code chunk below replace `NAME_OF_DATASET` with the actual name of the dataset we are working with, which is `births14`, and then run the entire code chunk
+
+-   The function `head`allows you to see the first 6 rows of the data frame.
+:::
+
+```{r first look}
+head(NAME_OF_DATASET)
+```
+
+::: {style="color: black; background-color: white; padding: 15px; border: 5px solid #FF585D; border-radius: 5px;"}
+**4b.** In the code chunk below replace `NAME_OF_DATASET` with the actual name of the dataset we are working with, which is `births14`, and then run the entire code chunk
+
+-   The function `glimpse`allows you to see how many variables, what type each is, and how many observations are in the data frame.
+:::
+
+```{r a quick glimpse}
+glimpse(NAME_OF_DATASET)
+```
+
+Because the `births14` dataset is included in the `openintro` package, you can **access its documentation** to learn more about the dataset and what each variable represents.
+
+::: {style="color: black; background-color: white; padding: 15px; border: 5px solid #FF585D; border-radius: 5px;"}
+**4c. Replace** \_ with ? and run the code chunk to access the documentation
+:::
+
+```{r documentation}
+_births14
+```
+
+::: {style="color: black; background-color: white; padding: 15px; border: 5px solid #006CB3; border-radius: 5px;"}
+1.  **What does each row in the dataset represent?**
+:::
+
+::: {style="color: black; background-color: white; padding: 15px; border: 5px solid #006CB3; border-radius: 5px;"}
+2.  **How many rows are there in the dataset?**
+:::
+
+::: {style="color: black; background-color: white; padding: 15px; border: 5px solid #006CB3; border-radius: 5px;"}
+3.  **How many variables are in the dataset?**
+:::
+
+## 5. How much do babies in this sample tend to weigh?
+
+### a. Create a Visualization
+
+Now that you have a sense of what information is included in the **births14** dataset, let's explore this question by creating a visualization that shows the distribution of weights.
+
+::: {style="color: black; background-color: white; padding: 15px; border: 5px solid #FF585D; border-radius: 5px;"}
+1.  **Replace NAME_OF_DATASET** with the name of the dataset we are working with in this case study.
+2.  **Replace NUMERICAL_VARIABLE** with the **EXACT** name of the variable in our dataset that relates to the question we are trying to answer, "How much do babies in this sample tend to weigh?"
+3.  **Replace TYPE_OF_PLOT with geom_histogram.** For more about a histogram and visualizing numerical data, [click here.](https://openintro-ims.netlify.app/explore-numerical)
+4.  Run the entire code chunk
+:::
+
+```{r}
+NAME_OF_DATASET |>
+  ggplot(aes(x = NUMERICAL_VARIABLE)) +
+  TYPE_OF_PLOT() +
+  labs(
+    title = "How much do babies in this sample weigh at birth?",
+    subtitle = "1000 babies in the United States from 2014",
+    x = "Weight (Pounds)",
+    y = "Number of Babies"
+  )
+```
+
+### b. Generate Descriptive Statistics
+
+Once you have a picture and get a general sense of the distribution, you need to generate some descriptive statistics to further understand your data.
+
+::: {style="color: black; background-color: white; padding: 15px; border: 5px solid #FF585D; border-radius: 5px;"}
+1.  **Replace NAME_OF_DATASET** with the name of the dataset we are working with in this case study.
+2.  **Replace NUMERICAL_VARIABLE** with the **EXACT** name of the variable used to make the histogram.
+3.  **Replace PIPE with** the pipe symbol described above.
+4.  Run the entire code chunk
+:::
+
+```{r weight descriptive stats}
+NAME_OF_DATASET PIPE 
+  filter(!is.na(NUMERICAL_VARIABLE)) PIPE
+  summarize( 
+    Mean = mean(NUMERICAL_VARIABLE), 
+    Median = median(NUMERICAL_VARIABLE), 
+    Standard_Deviation = sd(NUMERICAL_VARIABLE),
+    IQR = IQR(NUMERICAL_VARIABLE) 
+  )
+```
+
+**What did that code just do?** Here is how you'd read that code in English:
+
+1.  We'll start by asking the computer to reference the `births14` data and then
+2.  Next, we'll use the `filter` function remove out any observations where the weight was not recorded and then
+3.  `summarize` is the function we will use to generate the statistics.
+4.  `mean` is what is doing the calculation of the `weight` variable, while Mean is the name we are giving this calculation.
+5.  `median` is what is doing the calculation of the `weight` variable, while Median is the name we are giving this calculation.
+6.  `sd` is what is doing the calculation of the `weight` variable, while Standard_Deviation is the name we are giving this calculation.
+7.  `IQR` is what is doing the calculation of the `weight` variable, while IQR is the name we are giving this calculation.
+
+::: {style="color: black; background-color: white; padding: 15px; border: 5px solid #006CB3; border-radius: 5px;"}
+1.  **What did you learn about the weight of babies by creating a histogram and generating the descriptive statistics?**
+:::
+
+## 6. What proportion of mothers in this sample had a habit of smoking?
+
+Ultimately we want to explore the relationship between smoking habits of the mother and a babies weight at birth. However, before diving into more complex questions like that, it's important to understand each variable included in a question on its own. Let's quickly explore the `habit` variable.
+
+::: {style="color: black; background-color: white; padding: 15px; border: 5px solid #FF585D; border-radius: 5px;"}
+1.  **Replace NAME_OF_DATASET** with the name of the dataset we are working with in this case study.
+2.  **Replace PIPE with** the pipe symbol described above.
+3.  **Replace FUNCTION_THAT_COUNTS** with the `count`
+4.  **Replace CATEGORICAL_VARIABLE** with the `EXACT name of the variable in the dataset needed to answer this question about smoking habits.`
+5.  Run the entire code chunk
+:::
+
+```{r counts of habit}
+NAME_OF_DATASET PIPE
+  FUNCTION_THAT_COUNTS(CATEGORICAL_VARIABLE) |>
+  mutate(proportion = n / sum(n)) |>
+  mutate(percentage = proportion*100)
+```
+
+::: {style="color: black; background-color: white; padding: 15px; border: 5px solid #006CB3; border-radius: 5px;"}
+1.  If the **third line of function** uses the `mutate` function to create a new variable called proportion, which is equal to the number of moms within each respective habit divided by the total number of moms, **what does the fourth line do?**
+:::
+
+## 7. Is there a relationship between the weight of a baby and length of the pregnancy?
+
+### a. Create a Visualization
+
+::: {style="color: black; background-color: white; padding: 15px; border: 5px solid #FF585D; border-radius: 5px;"}
+1.  Copy and paste the **code used to create first histogram you made** into the code chunk below**.**
+2.  Copy the filter line from the code you wrote in 5b. Paste it into the second line of code so that the `ggplot` code is now on the third line.
+3.  Add `|>` to the end of the line you just created.
+4.  Add a `+` to the end of the last line of your code.
+5.  Add another line of code that says `facet_wrap(~habit, nrow = 2)`
+6.  Run the entire code chunk.
+:::
+
+```{r weight and habit viz}
+
+```
+
+::: {style="color: black; background-color: white; padding: 15px; border: 5px solid #006CB3; border-radius: 5px;"}
+1.  **What did the code** `facet_wrap(~habit, nrow = 2)` **do?**
+:::
+
+### b. Generate a Descriptive Statistics
+
+Believe it or not, you are just one line of code away from generating descriptive statistics for each histogram you just created.
+
+::: {style="color: black; background-color: white; padding: 15px; border: 5px solid #FF585D; border-radius: 5px;"}
+1.  Copy the **code used to generate the descriptive statistics in 5b** and paste it into the code chunk below**.**
+2.  Insert a new line of code **in between the second and third lines.** **The code should be** `group_by(habit)`
+3.  Run the entire code chunk
+:::
+
+**What does the group by function do?**
+
+-   Imagine all of the women in this dataset were standing in front of you. If you wanted to do what the `group_by` function does, you would say, "If you smoke, go to the left side of the room. If you do not smoke, go to the right side of the room."
+
+-   The `group_by` line needs to be located where it is so that you group the people with the same habits and then go to each group and calculate the statistics included in the summarize code.
+
+```{r weight habit stats}
+
+```
+
+::: {style="color: black; background-color: white; padding: 15px; border: 5px solid #006CB3; border-radius: 5px;"}
+1.  **By creating the faceted histograms and the descriptive statistics, what did you learn about the relationship between the weight of babies and the smoking habits of their mother?**
+:::
+
+## 8. Explore the length of pregnancy.
+
+Using what you've learned so far, explore the length of pregnancies.
+
+Tips:
+
+-   To add a code chunk, press command option i on your keyboard all at the same time.
+
+-   `weeks` is the variable for length of pregnancy in weeks.
