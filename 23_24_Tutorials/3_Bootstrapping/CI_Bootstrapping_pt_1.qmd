@@ -1,0 +1,259 @@
+---
+title: "Confidence Intervals with Bootstrapping, Part 1"
+subtitle: "TABLE NUMBER"
+author: "Mr. Adams"
+editor: visual
+format: 
+  gfm:
+    fig-width: 8
+    fig-height: 4
+    toc: true
+    toc_depth: 4
+---
+
+## Before You Begin
+
+Be sure to **read everything** as the structure of the tutorial is such that everything builds upon the items that came before it.
+
+::: {style="color: black; background-color: white; padding: 15px; border: 5px solid #FF585D; border-radius: 5px;"}
+Any text highlighted in this red border will require you to either **edit and run a code chunk or just run a code chunk**.
+:::
+
+::: {style="color: black; background-color: white; padding: 15px; border: 5px solid #8bc25a; border-radius: 5px;"}
+Any text highlighted in this red border will require you to **work with the marbles, Dunkin cup, and grey bag.**.
+:::
+
+::: {style="color: black; background-color: white; padding: 15px; border: 5px solid #006CB3; border-radius: 5px;"}
+Any text highlighted in this blue border will **require you to answer a question**. You can type your response directly in the box with the blue border.
+:::
+
+# Overview
+
+Having read about the process of building a confidence interval with boostrapping, you will now explore the topic even further by building a confidence interval using that method. For this part of the activity, you will:
+
+1.  generate the bootstrap samples using the bucket of marbles you have at your desk
+2.  Use R to visualize your bootstrapped proportions
+3.  Use R to generate a confidence interval
+
+The next tutorial will walk through how to do the whole process with R.
+
+::: {style="color: black; background-color: white; padding: 15px; border: 5px solid #FF585D; border-radius: 5px;"}
+***Start by changing `TABLE NUMBER` to the number of your table. This can be found at the top of this document next to author.***
+:::
+
+# Goals
+
+***By the end of this tutorial you should be able to...***
+
+1.  Ask a statistical question that would lead one to generate a confidence interval.
+
+2.  Describe how a bootstrapped distribution is generated.
+
+3.  Create a confidence interval using the bootstrapped distribution.
+
+4.  Interpret the confidence interval you generate.
+
+# 1: Get Ready to Go
+
+## 1.1: Packages
+
+As always, you want to grab the necessary "toolboxes" to complete the work you are about to do. You'll use two packages you've used before, `tidyverse` and `openintro`, and one you have not, `infer`. `Infer` is short for inference and will allow us to efficiently do calculations related to inference.
+
+### 1.1: Tasks and Questions
+
+::: {style="color: black; background-color: white; padding: 15px; border: 5px solid #FF585D; border-radius: 5px;"}
+#### a. Run the following code chunk.
+:::
+
+```{r packages}
+library(tidyverse)
+library(openintro)
+library(infer)
+```
+
+## 1.2: Set Seed
+
+Some of the code you will run later will involve randomness. Therefore, you'll want to set the seed first.
+
+### 1.2: Tasks and Questions
+
+::: {style="color: black; background-color: white; padding: 15px; border: 5px solid #FF585D; border-radius: 5px;"}
+#### a. Double click on PUT_ANY_NUMBER_HERE, hit delete, and enter any number.
+:::
+
+```{r set seed}
+set.seed(PUT_ANY_NUMBER_HERE)
+```
+
+# 2: The Marble Population - Question we will explore: What proportion of the marbles in the population bin are blue?
+
+## 2.1: Organize the materials on your table and generate your sample
+
+### 2.1: Tasks and Questions
+
+::: {style="color: black; background-color: white; padding: 15px; border: 5px solid #8bc25a; border-radius: 5px;"}
+#### a. Place the Population bin (the one with all of the blue and green marbles) to the left of the bin labeled SAMPLE (the Dunks cup).
+:::
+
+::: {style="color: black; background-color: white; padding: 15px; border: 5px solid #8bc25a; border-radius: 5px;"}
+#### b. Choose one person to close their eyes and then reach into the population bin, select 20 marbles (1 at a time) and place them into the bin labeled sample. Before selecting a marble, mix the marbles up a bit with your hand.
+:::
+
+::: {style="color: black; background-color: white; padding: 15px; border: 5px solid #006CB3; border-radius: 5px;"}
+#### c. After selecting 20, calculate the proportion of marbles in your sample that are blue? (record answer below after $\hat{p}$ = )
+
+$\hat{p}$ =
+:::
+
+::: {style="color: black; background-color: white; padding: 15px; border: 5px solid #006CB3; border-radius: 5px;"}
+#### d. Is the proportion, $\hat{p}$, you generated in question c a parameter or a statistic?
+:::
+
+# 3: Generate the Bootstrapped Samples
+
+Overview: The steps below will have you *manually select bootstrapped samples*. The examples in the book show bootstrapped distributions that include 10,000 bootstrapped samples! You would be here for the rest of the semester trying to do that many simulations. For this activity, *you will 30*.
+
+## 3.1: Assign Roles
+
+### 3.1: Tasks and Questions
+
+::: {style="color: black; background-color: white; padding: 15px; border: 5px solid #006CB3; border-radius: 5px;"}
+#### a. Assign someone the role of sampler. This person will, when instructed below, select the marbles to create the bootstrapped samples.
+
+Name of the Sampler =
+
+#### b. Assign someone the role of counter. This person will count the number of blue marbles selected and calculate each bootstrapped proportion. Have a phone calculator on the ready for this one.
+
+Name of the Counter =
+
+#### c. Assign someone the role of Data Entry Specialist. This person should have the computer that has been used so far to answer the questions above. This person will enter the proportions into R.
+
+Name of the Data Entry Specialist =
+
+#### d. Assign someone the role of Director of Quality Control. This person makes sure the group works efficiently while also paying attention to detail and doing high-quality work.
+
+Name of the Director of Quality Control =
+:::
+
+## 3.2 Generate the bootstrapped samples.
+
+### 3.2: Tasks and Questions
+
+::: {style="color: black; background-color: white; padding: 15px; border: 5px solid #8bc25a; border-radius: 5px;"}
+Director of Quality Control - Keep a close eye on the process and direct the team by reading the following directions.
+
+#### a. Sampler - Reach into the bin labeled SAMPLE (the Dunks cup) and select one marble.
+
+#### b. Counter - Take note of whether that marble was a blue marble or a green marble. (You can do this on paper, Notability, or OneNote)
+
+#### c. Sampler - Put the marble back into the bin labeled sample.
+
+#### d. Repeat steps a - c 19 more times so you have taken a total of 20 marbles.
+
+#### e. Counter - Calculate the proportion of blue marbles from the 20 selections.
+:::
+
+::: {style="color: black; background-color: white; padding: 15px; border: 5px solid #FF585D; border-radius: 5px;"}
+#### f. Data Entry Specialists - Delete NUMBER_FROM_F in the code chunk below and enter the proportion your teammate calculated in step e.
+:::
+
+Congratulations, your team has generated its first bootstrapped sample!
+
+::: {style="color: black; background-color: white; padding: 15px; border: 5px solid #8bc25a; border-radius: 5px;"}
+#### g. Repeat steps a - f 29 more times. ***tip for Data Entry Specialist - you must put a comma after each number you add to the vector you're creating. example: `c(0.4,0.5,0.6,0.55,0.45)`***
+:::
+
+Congratulations! You have created a data frame that contains 30 bootstrapped proportions!
+
+```{r bootstrapped samples}
+bootstraps_data <- data.frame(
+                      bootstrapped_proportions = c(NUMBERS_FROM_F))
+```
+
+# 4: Build the confidence interval
+
+Now that you have built the data frame, we can analyze it.
+
+### 4.1 Tasks and Questions
+
+::: {style="color: black; background-color: white; padding: 15px; border: 5px solid #006CB3; border-radius: 5px;"}
+#### a. What is the name of the data frame you just created?
+:::
+
+::: {style="color: black; background-color: white; padding: 15px; border: 5px solid #006CB3; border-radius: 5px;"}
+#### b. What is the name of the variable in that data frame?
+:::
+
+::: {style="color: black; background-color: white; padding: 15px; border: 5px solid #FF585D; border-radius: 5px;"}
+#### c. Create a dot plot (`geom_dot`) to show the distribution of bootstrapped proportions.
+:::
+
+```{r dot plot}
+
+```
+
+::: {style="color: black; background-color: white; padding: 15px; border: 5px solid #FF585D; border-radius: 5px;"}
+#### d. Using the `summarize` function, generate the mean and standard deviation for the distribution you created above.
+:::
+
+```{r mean sd }
+
+```
+
+#### e. Generate a 95% confidence interval by
+
+::: {style="color: black; background-color: white; padding: 15px; border: 5px solid #FF585D; border-radius: 5px;"}
+1.  Replace `NAME_OF_DATA_FRAME` to the name of the data frame you just created.
+:::
+
+::: {style="color: black; background-color: white; padding: 15px; border: 5px solid #FF585D; border-radius: 5px;"}
+2.  Replace `NAME_OF_VARIABLE` to the name of the variable you just created.
+:::
+
+::: {style="color: black; background-color: white; padding: 15px; border: 5px solid #FF585D; border-radius: 5px;"}
+3.  Replace `CONFIDENCE_LEVEL` to 0.95
+:::
+
+::: {style="color: black; background-color: white; padding: 15px; border: 5px solid #006CB3; border-radius: 5px;"}
+4.  Run the code chuck and report the confidence interval.
+
+lower_ci =
+
+upper_ci =
+:::
+
+```{r ci}
+
+NAME_OF_DATA_FRAME %>%
+  select(NAME_OF_VARIABLE) %>%
+  get_confidence_interval(level = CONFIDENCE_LEVEL) 
+
+```
+
+::: {style="color: black; background-color: white; padding: 15px; border: 5px solid #006CB3; border-radius: 5px;"}
+#### f. What relationship do you see between the lower and upper bounds of the confidence interval and the mean and standard deviation you calculated in question d?
+:::
+
+::: {style="color: black; background-color: white; padding: 15px; border: 5px solid #006CB3; border-radius: 5px;"}
+#### g. Write a sentence interpreting the confidence interval you just created. This sentence should help answer our original question, "What proportion of the marbles in the population bin are blue?"
+:::
+
+::: {style="color: black; background-color: white; padding: 15px; border: 5px solid #8bc25a; border-radius: 5px;"}
+#### g. Count the number of blue marbles and green marbles in your population.
+:::
+
+::: {style="color: black; background-color: white; padding: 15px; border: 5px solid #FF585D; border-radius: 5px;"}
+#### h. Calculate the proportion of blue marbles in your population. Show your calculations in the code chunk below. 
+:::
+
+```{r calculator}
+
+```
+
+::: {style="color: black; background-color: white; padding: 15px; border: 5px solid #006CB3; border-radius: 5px;"}
+#### i. Does your confidence interval contain the population proportion of blue marbles that you calculated in part h?
+:::
+
+# Sources:
+
+<https://openintro-ims.netlify.app/foundations-bootstrapping.html>
