@@ -1,0 +1,226 @@
+---
+title: "Confidence Intervals with Bootstrapping, Part 2"
+subtitle: "TABLE NUMBER"
+author: "YOUR NAME"
+editor: visual
+format: 
+  gfm:
+    fig-width: 8
+    fig-height: 4
+    toc: true
+    toc_depth: 4
+---
+
+## Before You Begin
+
+Be sure to **read everything** as the structure of the tutorial is such that everything builds upon the items that came before it.
+
+::: {style="color: black; background-color: white; padding: 15px; border: 5px solid #FF585D; border-radius: 5px;"}
+Any text highlighted in this red border will require you to either **edit and run a code chunk or just run a code chunk**.
+:::
+
+::: {style="color: black; background-color: white; padding: 15px; border: 5px solid #006CB3; border-radius: 5px;"}
+Any text highlighted in this blue border will **require you to answer a question**. You can type your response directly in the box with the blue border.
+:::
+
+# Overview
+
+This activity builds on the one you did with the marbles. As you saw in that activity, generating a lot of bootstrapped portions takes a long time! Let's let the computer do the work! This activity will walk you through how you can generate thousands of bootstrapped proportions and construct a confidence interval. What you learn in this activity will allow you to make your statistical research more sophisticated.
+
+***Start by changing YOUR NAME to your name. This can be found at the top of this document next to author.***
+
+# Goals
+
+***By the end of this tutorial you should be able to...***
+
+1.  Ask a statistical question that would lead one to generate a confidence interval.
+
+2.  Write code to generate a histogram of the bootstrapped distribution.
+
+3.  Write code to generate a confidence interval with bootstrapping.
+
+4.  Interpret the confidence interval you generate.
+
+# 1: Get Ready to Go
+
+## 1.1: Packages
+
+As always, you want to grab the necessary "toolboxes" to complete the work you are about to do. You'll use the same packages used in part one: tidyverse, openintro, and infer.
+
+### 1.1: Tasks and Questions
+
+::: {style="color: black; background-color: white; padding: 15px; border: 5px solid #FF585D; border-radius: 5px;"}
+#### a. Run the following code chunk.
+:::
+
+```{r packages}
+library(tidyverse)
+library(openintro)
+library(infer)
+```
+
+## 1.2: Set Seed
+
+Some of the code you will run later will involve randomness. Therefore, you'll want to set the seed first.
+
+### 1.2: Tasks and Questions
+
+::: {style="color: black; background-color: white; padding: 15px; border: 5px solid #FF585D; border-radius: 5px;"}
+#### a. Double click on PUT_ANY_NUMBER_HERE, hit delete, and enter any number.
+:::
+
+```{r set seed}
+set.seed(PUT_ANY_NUMBER_HERE)
+```
+
+# 2: Recreate the Marble Activity
+
+## 2.1: Create your sample.
+
+The first thing you did in the marble activity was select a sample of 20 marbles. When researching, that will be the step you take after generating your research question. When you collect a random sample from a population, you will collect data and organize it into a tidy data set. To recreate our marble activity, you need to create the sample you selected. That is what you will do in this section.
+
+### 2.1: Tasks and Questions
+
+::: {style="color: black; background-color: white; padding: 15px; border: 5px solid #FF585D; border-radius: 5px;"}
+#### a. You need to give your data frame a name. Therefore, change NAME_OF_DATA_FRAME to `marble_data`.
+
+#### b. Tibble is the function that will create the data frame. In that data frame, you will have one variable called marble_color. Find the portion of the code where the name of the variable should go. Then, replace that code with `marble_color`.
+
+#### c. Change MARBLE_COLOR_1 and MARBLE_COLOR_2 to `blue` and `green` respectively.
+
+#### d. Change NUMBER_OF_MARBLE_1 to the number of blue marbles in your [*sample*]{.underline} of marbles you selected in tutorial 7 part 1. i.e. How many blue marbles did you physically select when you originally did the activity in class?
+
+#### e. Change NUMBER_OF_MARBLE_2 to the number of green marbles in your [*sample*]{.underline} of marbles you selected in tutorial 7 part 1. i.e. How many green marbles did you physically select when you originally did the activity in class?
+
+#### f. Run the code chunk and look over the data frame you created.
+:::
+
+```{r create your sample}
+NAME_OF_DATA_FRAME <- tibble(NAME_OF_VARIABLE = c(rep("MARBLE_COLOR_1", NUMBER_OF_MARBLE_1), rep("MARBLE_COLOR_2", NUMBER_OF_MARBLE_2)))
+
+NAME_OF_DATA_FRAME
+```
+
+# 3: Generate Bootstrapped Samples
+
+Now that we have our sample, you can simulate the bootstrapping process. Or, in other words, we can sample 20 marbles, with replacement, from our sample, calculate a proportion, and then repeat that process many, many times. In this activity, we will repeat that process 1,000 times. Let's GO!
+
+### 3.1: Tasks and Questions
+
+::: {style="color: black; background-color: white; padding: 15px; border: 5px solid #FF585D; border-radius: 5px;"}
+#### a. Change NAME_OF_VARIABLE, COLOR, and NUMBER_OF_REPS in the code below so that the computer looks at the `marble_color` variable, counts blue as a success as it generates 1000 bootstrapped samples, and calculates the proportion for each bootstrap sample.
+:::
+
+```{r generate bootstrapped samples}
+bootstrapped_proportions <- marble_data %>%
+                              specify(response = NAME_OF_VARIABLE, success = "COLOR") %>%
+                              generate(reps = NUMBER_OF_REPS, type = "bootstrap") %>%
+                              calculate(stat = "prop") 
+
+bootstrapped_proportions
+```
+
+::: {style="color: black; background-color: white; padding: 15px; border: 5px solid #006CB3; border-radius: 5px;"}
+#### b. Why does your new data frame have 1000 rows?
+:::
+
+::: {style="color: black; background-color: white; padding: 15px; border: 5px solid #006CB3; border-radius: 5px;"}
+#### c. What does the each number listed under the variable stat in the new data frame represent?
+:::
+
+### 3.2: Tasks and Questions
+
+::: {style="color: black; background-color: white; padding: 15px; border: 5px solid #FF585D; border-radius: 5px;"}
+#### a. Edit the code below to create a histogram showing the distribution of bootstrapped proportions. Be sure to add in a title and labels for the x and y axes.
+:::
+
+**Hint:** Look closely at the code above to be sure you know what the [name of the data frame]{.underline} is and the [name of the variable is that represents the bootstrapped proportions.]{.underline}
+
+```{r visualize bootstrapped props}
+
+                  %>%
+  ggplot(aes(x = )) +
+  geom_() +
+  labs(
+    title = "",
+    x = "",
+    y = "",
+  )
+
+```
+
+::: {style="color: black; background-color: white; padding: 15px; border: 5px solid #006CB3; border-radius: 5px;"}
+#### b. Using the visualization, estimate a 95% confidence interval for the proportion of blue marbles in the population.
+:::
+
+::: {style="color: black; background-color: white; padding: 15px; border: 5px solid #006CB3; border-radius: 5px;"}
+#### c. Interpret the confidence interval you found in part b.
+:::
+
+### 3.3: Generate the Confidence Interval
+
+In the last section, you estimated the confidence interval. In this part, you will adjust the code to generate the a 95% Confidence Interval.
+
+#### 3.3: Tasks and Questions
+
+::: {style="color: black; background-color: white; padding: 15px; border: 5px solid #FF585D; border-radius: 5px;"}
+#### a. Adjust the code below to construct a 95% confidence interval.
+:::
+
+***Tips: You are going to use the [data frame that contains the 1000 bootstrapped proportions]{.underline}.***
+
+```{r marble confidence interval}
+NAME_OF_DATA_FRAME %>%
+  select(NAME_OF_VARIABLE) %>%
+  get_confidence_interval(level = CONFIDENCE_LEVEL) 
+```
+
+::: {style="color: black; background-color: white; padding: 15px; border: 5px solid #006CB3; border-radius: 5px;"}
+#### b. How accurate was your estimate of the confidence interval in 3.2 part b in relation to what you got from running the code below.
+:::
+
+# 4: THE CHALLENGE
+
+On the homework problems in Chapter 12 of Introduction to Modern Statistics, you were asked to analyze distributions of bootstrapped proportions. The challenge you have now is to recreate one of those histograms and construct a confidence interval using the tools you learned above. This is a very challenging task!
+
+***Think - Ask Questions - Review and use the code above - Collaborate - Edit - Stay Patient - Fierce Positivity!***
+
+### 4.1: Tasks and Questions
+
+#### a. Choose one of the following questions from the [Chapter 12 exercises: 1, 2, or 3.](https://openintro-ims.netlify.app/foundations-bootstrapping#chp12-exercises)
+
+::: {style="color: black; background-color: white; padding: 15px; border: 5px solid #FF585D; border-radius: 5px;"}
+#### b. Create a data frame that represents the sample data described in the question.
+:::
+
+```{r ims exercise data}
+
+```
+
+::: {style="color: black; background-color: white; padding: 15px; border: 5px solid #FF585D; border-radius: 5px;"}
+#### c. Create 1000 bootstrapped sample proportions.
+:::
+
+```{r bootstrapping}
+
+```
+
+::: {style="color: black; background-color: white; padding: 15px; border: 5px solid #FF585D; border-radius: 5px;"}
+#### d. Create a histogram showing the distribution of those 1000 bootstrapped proportions.
+:::
+
+```{r boot hist}
+
+```
+
+::: {style="color: black; background-color: white; padding: 15px; border: 5px solid #FF585D; border-radius: 5px;"}
+#### e. Generate a 95% confidence interval.
+:::
+
+```{r ims exercise ci}
+
+```
+
+::: {style="color: black; background-color: white; padding: 15px; border: 5px solid #006CB3; border-radius: 5px;"}
+#### f. Write a sentence interpreting the 95% confidence interval you just generated.
+:::
