@@ -1,0 +1,183 @@
+---
+title: "Confidence Intervals for a Single Mean with Bootstrapping"
+subtitle: "TABLE NUMBER"
+author: "Mr. Adams"
+editor: visual
+format: 
+  gfm:
+    fig-width: 8
+    fig-height: 4
+    toc: true
+    toc_depth: 4
+---
+
+# Overview
+
+This activity builds on the reading and practice problems you did related to building confidence intervals for a single mean. Let's let the computer do the work in building these intervals! What you learn in this activity will allow you to make your statistical research more sophisticated.
+
+***Start by changing YOUR NAME to your name. This can be found at the top of this document next to author.***
+
+# Goals
+
+***By the end of this tutorial you should be able to...***
+
+1.  Ask a statistical question that would lead one to generate a confidence interval for a single mean.
+
+2.  Write code to generate a histogram of the bootstrapped distribution of means.
+
+3.  Write code to generate a confidence interval for a single mean with bootstrapping.
+
+4.  Interpret the confidence interval you generate.
+
+# 1: Get Ready to Go
+
+## 1.1: Packages
+
+As always, you want to grab the necessary "toolboxes" to complete the work you are about to do. You'll use the same packages used in previous tutorials tidyverse, openintro, and infer.
+
+### 1.1: Tasks and Questions
+
+#### a. Run the following code chunk.
+
+```{r packages, warning=FALSE, message=FALSE}
+library(tidyverse)
+library(openintro)
+library(infer)
+```
+
+## 1.2: Set Seed
+
+Some of the code you will run later will involve randomness. Therefore, you'll want to set the seed first. This will ensure when you run the code at a later date, you will get the same results as you did the first time.
+
+### 1.2: Tasks and Questions
+
+#### a. Double click on PUT_ANY_NUMBER_HERE, hit delete, enter any number, and run the code chunk.
+
+```{r set seed}
+set.seed(PUT_ANY_NUMBER_HERE)
+```
+
+# 2: Explore the Sample Data
+
+## 2.1 The data you will use and the question you will explore.
+
+For this tutorial, we will explore a sample of [**507 physically active adults collected by Heinz et al. in 2003**]{.underline}. You've seen this dataset before in Chapter 19 of Introduction to Modern Statistics.
+
+To learn more about the dataset, run the following code.
+
+```{r learn about the data}
+?bdims
+```
+
+***For this first part of the tutorial we will focus on the following question:***
+
+[***How tall do physically active adults tend to be?***]{.underline}
+
+### 2.1: Tasks and Questions
+
+a.  What is the population of interest?
+
+b.  What units are used for the height variable?
+
+c.  If we will be generating a confidence interval for the mean height, describe the parameter and statistics.
+
+***Parameter:***
+
+***Statistic:***
+
+## 2.2: Visualize the distribution of heights in the sample.
+
+Before we dive into generating the confidence interval, let's first visualize the distribution of heights of the 507 physically active adults. The confidence interval will allow us to build upon the story being told by this visualization.
+
+### 2.2: Tasks and Questions
+
+a.  Using the `bdims` data frame, create a histogram showing the distribution of the height (`hgt` is specific name used in the data frame) variable. Make the `binwidth = 2` and be sure to add a title and labels for the x and y axes.
+
+```{r histogram of heights}
+
+```
+
+## 2.3: Generate the summary statistics for the height variable.
+
+As always, a visualization is helpful and we need to also generate a few summary statistics to be able to describe the distribution more specifically.
+
+### 2.3: Tasks and Questions
+
+a.  Change `NAME_OF_SAMPLE_DATA` to the name of the sample data frame you used to build the histogram in the previous section.
+
+b.  Change FUNCTION_TO_CALC_MEAN_HEIGHT and FUNCTION_TO_CALC_SD_HEIGHT so you can calculate the mean and standard deviation of the height variable.
+
+c.  What did you learn about the distribution of heights in our sample by generating the histogram and the summary statistics. Be sure to mention the shape, center, and spread of the data. Use numbers and statistical vocabulary.
+
+```{r ss heights}
+NAME_OF_SAMPLE_DATA |>
+  summarise(
+    x_bar_hgt = FUNCTION_TO_CALC_MEAN_HEIGHT(hgt), 
+    s_hgt = FUNCTION_TO_CALC_SD_HEIGHT(hgt)
+  )
+```
+
+# 3: Generate and Interpret a Confidence Interval for the Mean
+
+You now have an understanding of the heights of the 507 active adults in this sample data frame. Now you will generate a confidence interval for the mean so that you can make an inference about the population mean. To generate this confidence interval, we will use the bootstrapping method.
+
+***The following code will make the computer...***
+
+a.  Take a sample, with replacement, of 507 heights from the sample.
+b.  Calculate the mean of that bootstrap sample.
+c.  Repeat that process 999 more times.
+
+This will generate the 1000 bootstrapped sample means, which we can then use to generate the confidence interval. Let's dive into the code to make this happen.
+
+## 3.1 Generate the bootstrapped means
+
+This code will look very similar to the code you wrote to generate bootstrapped proportions. It's always important to find similarities and connections!
+
+When you complete the tasks and questions for this section, [**the code below will reads like this:**]{.underline}
+
+1.  Let's name the bootstrapped data we are going to make `bs_mean_height`
+2.  Get the sample data and then
+3.  specify that we want to focus on the `hgt` variable and then
+4.  generate 1000 reps using the bootstrap method and then
+5.  for each of those reps calculate the mean.
+
+### 3.1: Tasks and Questions
+
+a.  Change NAME_OF_SAMPLE_DATA to the name of the sample data you used in section 2.
+
+b.  Change NUMERICAL_VARIABLE to the variable name for height.
+
+c.  Change NUMBER_OF_REPS to 1000
+
+d.  Change SUMMARY_STAT to mean. Keep the quotes around mean.
+
+```{r bootstrapped means}
+bs_mean_height <- 
+  NAME_OF_SAMPLE_DATA |>
+  specify(response = NUMERICAL_VARIABLE) |>
+  generate(reps = NUMBER_OF_REPS , type = "bootstrap") |>
+  calculate(stat = "SUMMARY_STAT") 
+
+bs_mean_height
+```
+
+## 3.2: Generate the confidence interval
+
+Now that we have the bootstrapped means, we can use them to generate the confidence interval. Again, you will see that the code below is very similar to code you used when generating the confidence interval for proportions.
+
+### 3.2: Tasks and Questions
+
+a.  When generating the confidence interval using the bootstrapping method, do you want to use the `bdims` or the `bs_mean_height` data frame?
+
+b.  Construct a 95% confidence interval by adjusting the code below so that it includes the data frame you put for question a above and the variable stat.
+
+    ```{r ci for a single mean}
+
+    bs_mean_height |>
+      select(stat) |>
+      get_confidence_interval(level = 0.95)
+    ```
+
+c.  Write a sentence interpreting the confidence interval.
+
+    Sources: <https://openintro-ims.netlify.app/inference-one-mean.html> <https://github.com/OpenIntroStat/ims/blob/main/exercises/19-ex-inference-one-mean.Rmd> <https://openintro.shinyapps.io/ims-05-infer-05/#section-welcome>
