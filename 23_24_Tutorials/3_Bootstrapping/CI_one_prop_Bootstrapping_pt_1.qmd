@@ -185,7 +185,7 @@ Now that you have built the data frame, we can analyze it.
 :::
 
 ::: {style="color: black; background-color: white; padding: 15px; border: 5px solid #FF585D; border-radius: 5px;"}
-#### c. Create a dot plot (`geom_dot`) to show the distribution of bootstrapped proportions.
+#### c. Create a dot plot (`geom_dotplot`) to show the distribution of bootstrapped proportions.
 :::
 
 ```{r dot plot}
@@ -243,7 +243,7 @@ NAME_OF_DATA_FRAME %>%
 :::
 
 ::: {style="color: black; background-color: white; padding: 15px; border: 5px solid #FF585D; border-radius: 5px;"}
-#### h. Calculate the proportion of blue marbles in your population. Show your calculations in the code chunk below. 
+#### h. Calculate the proportion of blue marbles in your population. Show your calculations in the code chunk below.
 :::
 
 ```{r calculator}
