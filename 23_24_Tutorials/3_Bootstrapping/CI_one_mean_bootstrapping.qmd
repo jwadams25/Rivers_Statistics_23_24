@@ -11,6 +11,18 @@ format:
     toc_depth: 4
 ---
 
+## Before You Begin
+
+Be sure to **read everything** as the structure of the tutorial is such that everything builds upon the items that came before it.
+
+::: {style="color: black; background-color: white; padding: 15px; border: 5px solid #FF585D; border-radius: 5px;"}
+Any text highlighted in this red border will require you to either **edit and run a code chunk or just run a code chunk**.
+:::
+
+::: {style="color: black; background-color: white; padding: 15px; border: 5px solid #006CB3; border-radius: 5px;"}
+Any text highlighted in this blue border will **require you to answer a question**. You can type your response directly in the box with the blue border.
+:::
+
 # Overview
 
 This activity builds on the reading and practice problems you did related to building confidence intervals for a single mean. Let's let the computer do the work in building these intervals! What you learn in this activity will allow you to make your statistical research more sophisticated.
@@ -61,37 +73,49 @@ set.seed(PUT_ANY_NUMBER_HERE)
 
 ## 2.1 The data you will use and the question you will explore.
 
-For this tutorial, we will explore a sample of [**507 physically active adults collected by Heinz et al. in 2003**]{.underline}. You've seen this dataset before in Chapter 19 of Introduction to Modern Statistics.
+For this tutorial, we will explore a sample of [**507 physically active adults collected by Heinz et al. in 2003**]{.underline}. You will see this dataset before in [Chapter 19 of Introduction to Modern Statistics](https://openintro-ims.netlify.app/inference-one-mean).
 
+::: {style="color: black; background-color: white; padding: 15px; border: 5px solid #FF585D; border-radius: 5px;"}
 To learn more about the dataset, run the following code.
+:::
 
 ```{r learn about the data}
 ?bdims
 ```
 
-***For this first part of the tutorial we will focus on the following question:***
+::: {style="color: black; background-color: white; padding: 15px; border: 5px solid #8BC25A; border-radius: 5px;"}
+***For this tutorial we will focus on the following question:***
 
 [***How tall do physically active adults tend to be?***]{.underline}
+:::
 
 ### 2.1: Tasks and Questions
 
+::: {style="color: black; background-color: white; padding: 15px; border: 5px solid #006CB3; border-radius: 5px;"}
 a.  What is the population of interest?
+:::
 
+::: {style="color: black; background-color: white; padding: 15px; border: 5px solid #006CB3; border-radius: 5px;"}
 b.  What units are used for the height variable?
+:::
 
+::: {style="color: black; background-color: white; padding: 15px; border: 5px solid #006CB3; border-radius: 5px;"}
 c.  If we will be generating a confidence interval for the mean height, describe the parameter and statistics.
 
 ***Parameter:***
 
 ***Statistic:***
+:::
 
 ## 2.2: Visualize the distribution of heights in the sample.
 
-Before we dive into generating the confidence interval, let's first visualize the distribution of heights of the 507 physically active adults. The confidence interval will allow us to build upon the story being told by this visualization.
+Before we dive into generating the confidence interval, let's first visualize the distribution of heights of the 507 physically active adults from the sample. The confidence interval will allow us to build upon the story being told by this visualization.
 
 ### 2.2: Tasks and Questions
 
+::: {style="color: black; background-color: white; padding: 15px; border: 5px solid #FF585D; border-radius: 5px;"}
 a.  Using the `bdims` data frame, create a histogram showing the distribution of the height (`hgt` is specific name used in the data frame) variable. Make the `binwidth = 2` and be sure to add a title and labels for the x and y axes.
+:::
 
 ```{r histogram of heights}
 
@@ -103,11 +127,11 @@ As always, a visualization is helpful and we need to also generate a few summary
 
 ### 2.3: Tasks and Questions
 
+::: {style="color: black; background-color: white; padding: 15px; border: 5px solid #FF585D; border-radius: 5px;"}
 a.  Change `NAME_OF_SAMPLE_DATA` to the name of the sample data frame you used to build the histogram in the previous section.
 
 b.  Change FUNCTION_TO_CALC_MEAN_HEIGHT and FUNCTION_TO_CALC_SD_HEIGHT so you can calculate the mean and standard deviation of the height variable.
-
-c.  What did you learn about the distribution of heights in our sample by generating the histogram and the summary statistics. Be sure to mention the shape, center, and spread of the data. Use numbers and statistical vocabulary.
+:::
 
 ```{r ss heights}
 NAME_OF_SAMPLE_DATA |>
@@ -116,6 +140,10 @@ NAME_OF_SAMPLE_DATA |>
     s_hgt = FUNCTION_TO_CALC_SD_HEIGHT(hgt)
   )
 ```
+
+::: {style="color: black; background-color: white; padding: 15px; border: 5px solid #006CB3; border-radius: 5px;"}
+c.  What did you learn about the distribution of heights in our sample by generating the histogram and the summary statistics. Be sure to mention the shape, center, and spread of the data. Use numbers and statistical vocabulary.
+:::
 
 # 3: Generate and Interpret a Confidence Interval for the Mean
 
@@ -143,6 +171,7 @@ When you complete the tasks and questions for this section, [**the code below wi
 
 ### 3.1: Tasks and Questions
 
+::: {style="color: black; background-color: white; padding: 15px; border: 5px solid #FF585D; border-radius: 5px;"}
 a.  Change NAME_OF_SAMPLE_DATA to the name of the sample data you used in section 2.
 
 b.  Change NUMERICAL_VARIABLE to the variable name for height.
@@ -150,6 +179,7 @@ b.  Change NUMERICAL_VARIABLE to the variable name for height.
 c.  Change NUMBER_OF_REPS to 1000
 
 d.  Change SUMMARY_STAT to mean. Keep the quotes around mean.
+:::
 
 ```{r bootstrapped means}
 bs_mean_height <- 
@@ -167,17 +197,25 @@ Now that we have the bootstrapped means, we can use them to generate the confide
 
 ### 3.2: Tasks and Questions
 
+::: {style="color: black; background-color: white; padding: 15px; border: 5px solid #006CB3; border-radius: 5px;"}
 a.  When generating the confidence interval using the bootstrapping method, do you want to use the `bdims` or the `bs_mean_height` data frame?
+:::
 
+::: {style="color: black; background-color: white; padding: 15px; border: 5px solid #FF585D; border-radius: 5px;"}
 b.  Construct a 95% confidence interval by adjusting the code below so that it includes the data frame you put for question a above and the variable stat.
+:::
 
-    ```{r ci for a single mean}
+```{r ci for a single mean}
 
-    bs_mean_height |>
-      select(stat) |>
-      get_confidence_interval(level = 0.95)
-    ```
+DATA |>
+  select(VARIABLE) |>
+  get_confidence_interval(level = CONFIDENCE_LEVEL)
+```
 
+::: {style="color: black; background-color: white; padding: 15px; border: 5px solid #006CB3; border-radius: 5px;"}
 c.  Write a sentence interpreting the confidence interval.
+:::
 
-    Sources: <https://openintro-ims.netlify.app/inference-one-mean.html> <https://github.com/OpenIntroStat/ims/blob/main/exercises/19-ex-inference-one-mean.Rmd> <https://openintro.shinyapps.io/ims-05-infer-05/#section-welcome>
+```         
+Sources: <https://openintro-ims.netlify.app/inference-one-mean.html> <https://github.com/OpenIntroStat/ims/blob/main/exercises/19-ex-inference-one-mean.Rmd> <https://openintro.shinyapps.io/ims-05-infer-05/#section-welcome>
+```
