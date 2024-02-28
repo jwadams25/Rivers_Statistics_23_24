@@ -206,7 +206,6 @@ b.  Construct a 95% confidence interval by adjusting the code below so that it i
 :::
 
 ```{r ci for a single mean}
-
 DATA |>
   select(VARIABLE) |>
   get_confidence_interval(level = CONFIDENCE_LEVEL)
@@ -216,6 +215,12 @@ DATA |>
 c.  Write a sentence interpreting the confidence interval.
 :::
 
-```         
-Sources: <https://openintro-ims.netlify.app/inference-one-mean.html> <https://github.com/OpenIntroStat/ims/blob/main/exercises/19-ex-inference-one-mean.Rmd> <https://openintro.shinyapps.io/ims-05-infer-05/#section-welcome>
-```
+## Sources
+
+-   OpenIntro. (n.d.). *Inference for one mean*. Retrieved from <https://openintro-ims.netlify.app/inference-one-mean.html>
+
+-   OpenIntroStat. (n.d.). *19-ex-inference-one-mean.Rmd*. Retrieved from <https://github.com/OpenIntroStat/ims/blob/main/exercises/19-ex-inference-one-mean.Rmd>
+
+-   OpenIntro. (n.d.). *IMS 05 infer 05*. Retrieved from <https://openintro.shinyapps.io/ims-05-infer-05/#section-welcome>
+
+-   When citing these sources, I used ChatGPT Plus to format the citations in APA style and used the outputs it provided.
