@@ -1,0 +1,220 @@
+---
+title: "Statistical Inference Tutorial"
+subtitle: "Rivers School Life Sciences Research"
+author: "Mr. Adams"
+editor: visual
+format: 
+  gfm:
+    fig-width: 8
+    fig-height: 4
+    toc: true
+    toc_depth: 4
+---
+
+## 1. Before You Begin
+
+Be sure to **read everything** as the structure of the tutorial is such that everything builds upon the items that came before it.
+
+## 2. Start by Always Getting Your Toolboxes Out of the Shed.
+
+-   You do this by running the library function for each package you are going to use.
+
+**2a.** R**un the code below** to load up the **libraries** for the packages you downloaded in the first. This is akin to going to getting out your toolboxes out of the shed so you can get to work.
+
+**Tips**:
+
+-   **In the future** you will just need to run this code **when you begin working**.
+
+-   If you ever get an error that says "could not find the function.", then you need to go back and run the library code chunk.
+
+```{r libraries}
+library(tidyverse)
+library(openintro)
+library(broom)
+library(gt)
+library(janitor)
+```
+
+## Overview
+
+This tutorial will show you how to use R to conduct a test of significance and generate a confidence interval for one proportion. Those two terms are probably new to you. In fact, they often aren't discussed in AP Statistics until the second semester. Therefore, this will be a bit of a crash course on the topic both from a statistical content standpoint and coding standpoint. I recommend you consult with [Introduction to Modern Statistics](https://openintro-ims.netlify.app/foundations-mathematical) to learn more about these core elements to statistics.
+
+With that said, hopefully this kick starts your curiosity to continue learning and thining around how you can apply these concepts to your research.
+
+## 3. Inference for 1 proportion
+
+Inference is used to help describe a population using data from a sample. It's important to remember that appropriate sampling methods must be done to ensure the sample represents the population.
+
+A **confidence interval** allows us to estimate a range of plausible values for which we think a population proportion of mean will fall.[^1]
+
+[^1]: Mine Çetinkaya-Rundel and Johanna Hardin. "Foundations: Bootstrapping." OpenIntro Statistics. Accessed March 26, 2024. <https://openintro-ims.netlify.app/foundations-bootstrapping>.
+
+A **test of significance** allows us to test a claim about the population.[^2]
+
+[^2]: Çetinkaya-Rundel, Mine, and Johanna Hardin. "Foundations: Randomization." OpenIntro Statistics. Accessed March 26, 2024. <https://openintro-ims.netlify.app/foundations-randomization>.
+
+When using these tools for 1 proportion, you must be sure that
+
+-   The observations are independent. In practice, this is accomplished by generating a random sample
+
+-   The sample size (n) multiplied by the sample proportion is greater than 10.
+
+-   The sample size (n) multiplied by (1 - sample proportion) is greater than 10.
+
+### 3.1 - Case Study Details:
+
+Using the `Births14` data again, here are examples of when you might choose to utilize these inference tools.
+
+**Confidence Interval:**
+
+What proportion of all mothers are smokers?
+
+**Test of Significance**
+
+The CDC reported that in 2021 the percentage of pregnant women who smoke was 4.6%.[^3] Was the rate of smoking among pregnant women in 2014 greater than the rate in 2021?
+
+[^3]: Centers for Disease Control and Prevention. "From 2016 to 2021, the Percentage of Adults Aged 20--64 Who Had a Dental Visit in the Past 12 Months Increased from 6% to 47%." National Center for Health Statistics, last modified 2021. <https://www.cdc.gov/nchs/products/databriefs/db458.htm#:~:text=From%202016%20to%202021%2C%20the,from%206%25%20to%2047%25>.
+
+It's important to note that both of these question involve a binary categorical variable and, therefore, we are looking to understand one population proportion.
+
+### 3.2 - Using Inference Tools to help answer our case study questions.
+
+#### **3.2.1 Build a table**
+
+-   Replace `DATA` with the name of the dataframe we need to reference to answer.
+
+-   Replace `VARIABLE` with the name of the dataframe we need to answer our questions.
+
+-   What did the filter line do in this code?
+
+```{r make table}
+DATA |>
+  filter(!is.na(VARIABLE)) |>
+  count(VARIABLE) |>
+  adorn_totals("row")
+```
+
+#### **3.2.2 - Write your null and alternative hypotheses by filing in the blanks.**
+
+#### Tips:
+
+-   *The null hypothesis will always use the equals symbol.*
+
+-   *The alternative hypothesis can use either \<, \>, or not equal to.*
+
+-   You are always making a hypothesis about a population parameter.
+
+-   [More on the topic here.](https://openintro-ims.netlify.app/foundations-randomization#HypothesisTesting)
+
+**Null Hypothesis:** Population proportion of \_\_\_\_\_\_\_\_\_\_\_\_\_\_ = \_\_\_\_\_\_\_\_\_\_\_\_
+
+**Alternative Hypothesis:** Population proportion of \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+#### **3.3.3 - Conduct the test**
+
+**Adjust the code below so that...**
+
+-   x should equal the number of women in the sample who smoke.
+
+-   n should equal the
+
+-   p should equal the number in your null and alternative hypotheses.
+
+-   inside the "" write less
+
+```{r one prop test}
+prop.test(x = , 
+          n = , 
+          p = ,
+          alternative = "")
+```
+
+#### **3.2.4 - Describe the confidence interval.**
+
+We are 95% confident that the interval \_\_\_\_\_\_\_\_ to \_\_\_\_\_\_\_\_\_ captrues that population proportion of \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_.
+
+#### **3.2.5 - Use the p-value to write a test decision.**
+
+*Tips:*
+
+-   *If the p-value is greater than 0.05, then you will fail to reject the null hypothesis.*
+
+-   *If the p-value is less than 0.05, then you will reject the null hypothesis.*
+
+Given the value generated by the code above, write a test decision.
+
+#### **3.2.6 - Build your understanding of p-values and test decisions.**
+
+-   Write a prompt for a generative AI model to help you better understand p-values and test decisions. In your prompt be sure to include.
+
+    -   information about the data you are working with
+
+    -   the variable you are working with
+
+    -   you null hypothesis
+
+    -   the p-value you got
+
+-   [Reference this section of Introduction to Modern Statistics.](https://openintro-ims.netlify.app/foundations-randomization#p-value-and-statistical-significance)
+
+## 4. Using Inference to Compare 2 Groups
+
+Inference can also be used to compare different groups. This is commonly used in science as you look to compare a control group to a treatment group.
+
+### 4.1 Case Study Info
+
+In this case study we will continue to `Births14` data to see answer the questions: Is a statistically significant difference between in the mean weight of babies whose mothers smoked during pregnancy and did not.
+
+As you can imagine, there are certain conditions that need to be met to utilize the necessary statistical tests to answer these questions. [Please use this to reference those conditions.](https://openintro-ims.netlify.app/inference-two-means)
+
+### 4.2 - Using Inference Tools to help answer our case study questions.
+
+#### 4.2.1 - Generate Descriptive Statistics for each group.
+
+-   Tips:
+
+    -   Be sure to filter out any NA values
+
+    -   Use the group_by function
+
+    -   Use the summarise function
+
+    -   Find the mean, standard deviation, and number of observations
+
+```{r descriptive stats}
+
+```
+
+#### 4.2.2 - Create faceted histograms to visualize the two distributions of weight by the smoking habits of the mother.
+
+```{r viz}
+```
+
+#### 4.2.3 - Write the null and alternative hypothesis by filling in the blank.
+
+**Null Hypothesis:** The population mean \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_ = The population mean \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+**Alternative Hypothesis:** The population mean \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_ not equal to The population mean \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_.
+
+-   *Tips:*
+
+    -   *You use not equal to in the alternative hypothesis if you are hypothesizing the two groups are different. If you think one is less or greater than the other you can use either \< or \> in the alternative.*
+
+    -   *The null will always state that the two groups are equal.*
+
+#### 4.2.4 - Write the code to conduct the test
+
+-   replace EXPLANATORY_VARIABLE and RESPONSE_VARIABLE
+
+```{r}
+births14_na_habit <- births14 |>
+                      filter(!is.na(habit))
+
+t.test(RESPONSE_VARIABLE ~ EXPLANATORY_VARIABLE, data = births14_na_habit, alternative = "two.sided")
+```
+
+#### 4.2.5 - Interpret the confidence interval for the difference in means by filling in the blanks.
+
+We are 95% confident that the the true difference in means between mothers who did not smoke and who did smoke is between \_\_\_\_\_\_\_\_\_\_\_\_\_ and \_\_\_\_\_\_\_\_\_\_\_\_.
+
+#### 4.2.6 - Write a test decision using a 0.05 significance level. In other words, would you reject or fail to reject the null hypothesis at the 0.05 significance level?
