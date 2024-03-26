@@ -39,7 +39,7 @@ library(janitor)
 
 This tutorial will show you how to use R to conduct a test of significance and generate a confidence interval for one proportion. Those two terms are probably new to you. In fact, they often aren't discussed in AP Statistics until the second semester. Therefore, this will be a bit of a crash course on the topic both from a statistical content standpoint and coding standpoint. I recommend you consult with [Introduction to Modern Statistics](https://openintro-ims.netlify.app/foundations-mathematical) to learn more about these core elements to statistics.
 
-With that said, hopefully this kick starts your curiosity to continue learning and thining around how you can apply these concepts to your research.
+With that said, hopefully this kick starts your curiosity to continue learning and thinking around how you can apply these concepts to your research.
 
 ## 3. Inference for 1 proportion
 
