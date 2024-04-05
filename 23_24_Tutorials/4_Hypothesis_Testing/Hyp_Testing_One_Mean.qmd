@@ -1,0 +1,131 @@
+---
+title: "Hypothesis Testing for 1 Mean"
+subtitle: "TABLE NUMBER"
+author: "YOUR NAME"
+editor: visual
+format: 
+  gfm:
+    toc: true
+    toc_depth: 4
+---
+
+## Before You Begin
+
+Be sure to **read everything** as the structure of the tutorial is such that everything builds upon the items that came before it.
+
+::: {style="color: black; background-color: white; padding: 15px; border: 5px solid #FF585D; border-radius: 5px;"}
+Any text highlighted in this red border will require you to either **edit and run a code chunk or just run a code chunk**.
+:::
+
+::: {style="color: black; background-color: white; padding: 15px; border: 5px solid #006CB3; border-radius: 5px;"}
+Any text highlighted in this blue border will **require you to answer a question**. You can type your response directly in the box with the blue border.
+:::
+
+# Overview
+
+This tutorial will build your understanding of how to conduct a hypothesis test for a single mean using R. Instead of using the Randomization process, you will utilize a mathematical model - one sample t-test.
+
+This tutorial was built using the contents from [problem number 12 in Chapter 19 titled Inference for a Single Mean Hypothesis in Introduction to Modern Statistics](https://openintro-ims.netlify.app/inference-one-mean.html#chp19-exercises).
+
+***Start by changing YOUR NAME to your name. This can be found at the top of this document next to author.***
+
+```{r packages, echo=FALSE, warning=FALSE}
+library(tidyverse)
+library(openintro)
+library(infer)
+library(janitor)
+library(knitr)
+library(kableExtra)
+```
+
+# Goals
+
+***By the end of this tutorial you should be able to...***
+
+1.  Ask a statistical question that would lead you conduct a one sample t test.
+
+2.  Explore a numerical variable by generating summary statistics and a histogram.
+
+3.  Conduct a one sample t-test using R.
+
+4.  Make a test decision using the output of your code.
+
+# 1: The Case Study and Research Question:
+
+"In this exercise we work with a random sample of 1,000 cases from the dataset released by the United States Department of Health and Human Services in 2014." While you have explored this data before feel free to run the code below to learn more information about the dataset.
+
+```{r the data}
+?births14
+glimpse(births14)
+```
+
+### ***Research Question: "Does the length of a pregnancy tend to be different than 40 weeks?"***
+
+# 2: Explore the sample data
+
+Before you dive into conducting a hypothesis test, first learn about the sample data.
+
+### 2: Tasks and Questions
+
+::: {style="color: black; background-color: white; padding: 15px; border: 5px solid #FF585D; border-radius: 5px;"}
+a.  In the code chunk below, find the mean and standard deviation of the variable `weeks`.
+:::
+
+```{r summary stats}
+
+```
+
+::: {style="color: black; background-color: white; padding: 15px; border: 5px solid #FF585D; border-radius: 5px;"}
+b.  In the code chunk below, build a histogram for the `weeks` variable.
+:::
+
+```{r histogram}
+
+```
+
+::: {style="color: black; background-color: white; padding: 15px; border: 5px solid #006CB3; border-radius: 5px;"}
+c.  Describe the distribution of the weeks variable. Be sure to comment on the shape, center, and spread. In doing so, you must reference statistical vocabulary and STATISTICS. Be sure to bring meaning to the statistics you reference.
+:::
+
+# 3: Conduct a hypothesis test
+
+### 3: Tasks and Questions
+
+::: {style="color: black; background-color: white; padding: 15px; border: 5px solid #006CB3; border-radius: 5px;"}
+a.  State the null and alternative hypotheses.
+
+    **Null:**
+
+    **Alternative (be sure to read the research question closely):**
+:::
+
+::: {style="color: black; background-color: white; padding: 15px; border: 5px solid #FF585D; border-radius: 5px;"}
+b.  Edit the code below by doing the following
+
+    -   change `NAME_OF_DATASET`
+
+    -   change `NUMERICAL_VARIABLE`
+
+    -   select one of the following `"two.sided"` , `"less"` , `"greater"` (Your selection depends on your alternative hypothesis)
+
+    -   change `HYP_POP_MEAN` to the number that is in your hypotheses.
+:::
+
+```{r t test}
+t.test(NAME_OF_DATASET$NUMERICAL_VARIABLE,
+       alternative = c("two.sided", "less", "greater"),
+       mu = HYP_POP_MEAN,
+       conf.level = 0.95)
+```
+
+::: {style="color: black; background-color: white; padding: 15px; border: 5px solid #006CB3; border-radius: 5px;"}
+c.  What is the p-value?
+:::
+
+::: {style="color: black; background-color: white; padding: 15px; border: 5px solid #006CB3; border-radius: 5px;"}
+d.  Does the confidence interval contain 40 weeks?
+:::
+
+::: {style="color: black; background-color: white; padding: 15px; border: 5px solid #006CB3; border-radius: 5px;"}
+e.  Does this sample dataset contain convincing statistical evidence that the average length of pregnancy is not equal to 40 weeks? Explain.
+:::
